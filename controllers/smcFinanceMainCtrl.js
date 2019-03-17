@@ -23,15 +23,15 @@ app.controller("smcFinanceMainCtrl", function ($scope,$http) {
 	}
 	$scope.decryptURLsAndGetData=function(){
 		
-		$scope.readFolderURL=$scope.decrypt("c7ee6a277d12716545423ba3ea1ff7e7b31397554b4df16d10261b14a99f247cU2FsdGVkX1/RFG8nnHp3FeAuMoG712au2fho+N5tSsLTbglEQ9t4MeVuY3ATPNX/ZsDnYrykMyjjn5UT2O5DCPeOCb3acDpp0UIZr46Ps3/DB+wc1Pp1WCYV9rBIBbBNcCt43ldg7ZFQF3XAYo1NDoz9Vk7IA5xIdxorNb8jB1EkzxZ6SZzC7TVaA8tm4ekhwRamnqUz9wZll0Hs9R7BRjITV7csgDkTa8WKWPGIipg=",$scope.passphrase)
-		alert($scope.readFolderURL);
+		//$scope.readFolderURL=$scope.decrypt("c7ee6a277d12716545423ba3ea1ff7e7b31397554b4df16d10261b14a99f247cU2FsdGVkX1/RFG8nnHp3FeAuMoG712au2fho+N5tSsLTbglEQ9t4MeVuY3ATPNX/ZsDnYrykMyjjn5UT2O5DCPeOCb3acDpp0UIZr46Ps3/DB+wc1Pp1WCYV9rBIBbBNcCt43ldg7ZFQF3XAYo1NDoz9Vk7IA5xIdxorNb8jB1EkzxZ6SZzC7TVaA8tm4ekhwRamnqUz9wZll0Hs9R7BRjITV7csgDkTa8WKWPGIipg=",$scope.passphrase)
+		//alert($scope.readFolderURL);
+		var driveURL="https://www.googleapis.com/drive/v3/files?q=mimeType+%3D+%27application%2Fvnd.google-apps.folder%27+and+name+contains+%27cashflow%27"
 		
-		$http.get($scope.readFolderURL)
+		$http.get(driveURL)
 			.then(function(response) {
-			   	$scope.playLists=response.items;
-				alert(JSON.stringify(response));
+			   	alert(JSON.stringify(response));
 			},function(json) {
-			  	alert("Error!");
+			  	alert("Error! "+JSON.stringify(response));
 		});
 	};
 	
