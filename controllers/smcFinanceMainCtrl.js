@@ -31,7 +31,7 @@ app.controller("smcFinanceMainCtrl", function ($scope,$http) {
 			.then(function(response) {
 			   	alert(JSON.stringify(response));
 			},function(json) {
-			  	alert("Error! "+JSON.stringify(response));
+			  	alert("Error! "+JSON.stringify(json));
 		});
 	};
 	
