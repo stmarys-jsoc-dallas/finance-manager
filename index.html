@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<script src="scripts/angular.min.js"></script>
+<script src="directives/directive.js"></script>
+<script src="scripts/crypto-core.js"></script>
+<script src="controllers/smcFinanceMainCtrl.js"></script>
+<script src="scripts/xlsx.full.min.js"></script>
+<script src="scripts/jszip.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="styles/smcfinancemain.css">
+
+<body >
+
+  <div ng-app="smcFinance" ng-controller="smcFinanceMainCtrl" >
+  <div class="container">
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Select File</h4>
+        </div>
+        <div class="modal-body">
+          <p>Select google Folder</p>
+		  <div>
+		  </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="passwordPromptModal" tabindex="-1" role="dialog" aria-labelledby="passwordPromptModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" ng-init="showPassPhrasePrompt()">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="passwordPromptModalLabel">Enter password to retrieve data</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+			<div class="form-group">
+				<label for="passphrase">Password</label>
+				<input type="text" class="form-control" id="passphrase" placeholder="Enter Password" ng-model="passphrase">    
+			</div>
+		</form>		
+		
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" ng-click="decryptURLsAndGetData()" data-dismiss="modal">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    <div class="centrediv">
+    <h2>Please select file:</h2>
+    <input class="centreInput" type="file" custom-on-change="uploadFile" />
+    <br>
+    <br>
+    
+    </div>
+    <div class="centrediv" ng-show="initialized && transactions.length>0">
+      <hr>
+      <h3>Summary</h3>
+      <table border="1" style="padding:10">
+        <tr>
+          <td>Total Transactions</td>
+          <td>{{transactions.length}}</td>
+        </tr>
+        <tr>
+          <td>Total Credit</td>
+          <td>{{totalCredit}}</td>
+        </tr>
+        <tr>
+          <td>Total Debit</td>
+          <td>{{totalDebit}}</td>
+        </tr>
+        <tr>
+          <td>Balance</td>
+          <td>{{totalCredit-totalDebit}}</td>
+        </tr>
+      </table>
+      <br/>
+      <table ng-show=true class="table">
+        <tr>
+          <th>Date</th>
+          <th>Type</th>
+          <th>FROM/TO</th>
+          <th>Check From/To</th>
+          <th>Reason</th>
+          <th>Amount</th>
+        </tr>
+        <tr ng-repeat="x in transactions">
+          <td>
+            {{x.date}}
+          </td>
+          <td>
+            {{x.type}}
+          </td>
+          <td>
+            {{x.fromOrTo}}
+          </td>
+          <td>
+            {{x.checkFromOrTo}}
+          </td>
+          <td>
+            {{x.reason}}
+          </td>
+          <td>
+            {{x.amount}}
+          </td>
+        </tr>
+      </table>
+    </div>
+	<div ng-init="showFileSelectionModal()"/>
+  </div>
+
+</body>
+
+</html>
