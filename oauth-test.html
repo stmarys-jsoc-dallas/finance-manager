@@ -1,4 +1,4 @@
-<script src="https://apis.google.com/js/api.js"></script>
+<script src="scripts/crypto-core.js"></script>
 <script>
   var GoogleAuth;
   var SCOPE = 'https://www.googleapis.com/auth/drive.metadata.readonly';
@@ -7,6 +7,20 @@
     // Call the initClient function after the modules load.
     gapi.load('client:auth2', initClient);
   }
+  
+  var decrypt=function(encryptedMsg,passphrase){
+		var encryptedHMAC = encryptedMsg.substring(0, 64);
+        var encryptedData = encryptedMsg.substring(64);
+        var decryptedHMAC = CryptoJS.HmacSHA256(encryptedData, CryptoJS.SHA256(passphrase).toString()).toString();
+
+        if (decryptedHMAC !== encryptedHMAC) {
+            alert('Bad passphrase!');            
+        }
+
+        var decryptedString = CryptoJS.AES.decrypt(encryptedData, passphrase).toString(CryptoJS.enc.Utf8);
+		return decryptedString
+		
+	}
 
   function initClient() {
     // Retrieve the discovery document for version 3 of Google Drive API.
@@ -16,10 +30,16 @@
     // Initialize the gapi.client object, which app uses to make API requests.
     // Get API key and client ID from API Console.
     // 'scope' field specifies space-delimited list of access scopes.
+    var passphrase=$('#passphrase').val();
+    alert(passphrase);
+    //var apiKey=decrypt($('#passphrase').val());
+    //var clientID=decrypt();
+    var apiKey=""
+    var clientID=""
     gapi.client.init({
-        'apiKey': 'YOUR_API_KEY',
+        'apiKey': apiKey,
         'discoveryDocs': [discoveryUrl],
-        'clientId': 'YOUR_CLIENT_ID',
+        'clientId': clientID,
         'scope': SCOPE
     }).then(function () {
       GoogleAuth = gapi.auth2.getAuthInstance();
@@ -78,7 +98,10 @@
 </script>
 
 <button id="sign-in-or-out-button"
-        style="margin-left: 25px">Sign In/Authorize</button>
+        style="margin-left: 25px" onClick="handleClientLoad()">Submit</button>
+
+<input type="textbox" id="passphrase"
+        style="margin-left: 25px">Sign In/Authorize</input>
 <button id="revoke-access-button"
         style="display: none; margin-left: 25px">Revoke access</button>
 
