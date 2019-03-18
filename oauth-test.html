@@ -32,10 +32,10 @@
     // 'scope' field specifies space-delimited list of access scopes.
     var passphrase=$('#passphrase').val();
     alert(passphrase);
-    //var apiKey=decrypt($('#passphrase').val());
-    //var clientID=decrypt();
-    var apiKey=""
-    var clientID=""
+    var clientID=decrypt("00b6030ff1be0207399f1f3e44d2259758044d9702beb511d7c93aef423dd038U2FsdGVkX18uE+xrxuTPp+c+NYbujjplzWQayBMXGYoT203jxJ2tK5AiYuYmLKM1khrQ56U9tcZ6keUEOpVaAjkc3xAMi8WoC+g2PEcpodNl/ZVxuOtAVNKnOvrUKRTq",passphrase);
+    alert(clientID);
+    var apiKey=decrypt("58c583af4041d97b36a0bba1403f02aa78459f0acfb3481acdc9568090bdb6a2U2FsdGVkX19lXZp8TeGprc7gU8N1w45+ANjEvOHjZ8DBjxwxa1GK/Z3bYwJJkt7o",passphrase);
+    alert(apiKey);
     gapi.client.init({
         'apiKey': apiKey,
         'discoveryDocs': [discoveryUrl],
@@ -101,7 +101,7 @@
         style="margin-left: 25px" onClick="handleClientLoad()">Submit</button>
 
 <input type="textbox" id="passphrase"
-        style="margin-left: 25px">Sign In/Authorize</input>
+        style="margin-left: 25px"></input>
 <button id="revoke-access-button"
         style="display: none; margin-left: 25px">Revoke access</button>
 
@@ -109,6 +109,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script async defer src="https://apis.google.com/js/api.js" 
-        onload="this.onload=function(){};handleClientLoad()" 
+        onload="this.onload=function(){};" 
         onreadystatechange="if (this.readyState === 'complete') this.onload()">
 </script>
