@@ -26,9 +26,9 @@ var GoogleAuth;
     // 'scope' field specifies space-delimited list of access scopes.
     var passphrase=$('#passphrase').val();
     
-    var clientID=decrypt("1a1ebc396119f653560c87ecc3b1d7aaa423b756bcf3ccc7d0bd905b47588853U2FsdGVkX19bHralZOdKu6SEiNkAd+a5+2qESy9s10AjVqpb+iXfaKwc9rkgybEckyY7vtJriGOnTO9onxKkX71g1fhPSooz06KWOGcrfMeR/VcfUiAGZUCjmuRl8rFP",passphrase);
+    var clientID=decrypt("1a1ebc396119f653560c87ecc3b1d7aaa423b756bcf3ccc7d0bd905b47588853U2FsdGVkX19bHralZOdKu6SEiNkAd+a5+2qESy9s10AjVqpb+iXfaKwc9rkgybEckyY7vtJriGOnTO9onxKkX71g1fhPSooz06KWOGcrfMeR/VcfUiAGZUCjmuRl8rFP",thePassphrase);
     
-    var apiKey=decrypt("3f77ab07cccd066e34749a0a27c7d834059ca283262561272eb4e45dbf1277bcU2FsdGVkX1+wp0SQoGuavsVsZJixXlJnuBSQt2V2qEUDWJTivNW3ntnYkLq1KATiFrdyqiQ0Wiqjrg5EXLw/Zw==",passphrase);
+    var apiKey=decrypt("3f77ab07cccd066e34749a0a27c7d834059ca283262561272eb4e45dbf1277bcU2FsdGVkX1+wp0SQoGuavsVsZJixXlJnuBSQt2V2qEUDWJTivNW3ntnYkLq1KATiFrdyqiQ0Wiqjrg5EXLw/Zw==",thePassphrase);
     
     gapi.client.init({
         'apiKey': apiKey,
