@@ -95,6 +95,7 @@ request.execute(function(response) {
 }
 
 var populateData=function(){		
+	var pageToken = null;
 		gapi.client.drive.files.list({
     fields: 'nextPageToken, files(id, name)',
     pageToken: pageToken
