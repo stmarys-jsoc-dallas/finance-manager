@@ -41,6 +41,23 @@ app.controller("smcFinanceMainCtrl", function ($scope,$http) {
 		handleClientLoad();
 	};
 	
+	$scope.populateData=function(){		
+		gapi.client.drive.files.list({
+    fields: 'nextPageToken, files(id, name)',
+    pageToken: pageToken
+  }, function (err, res) {
+    if (err) {
+      // Handle error
+      console.error(err);
+    } else {
+      res.files.forEach(function (file) {
+        console.log('Found file: ', file.name, file.id);
+      });
+      pageToken = res.nextPageToken;
+    }
+  });
+	}
+	
 	$scope.decrypt=function(encryptedMsg,passphrase){
 		var encryptedHMAC = encryptedMsg.substring(0, 64);
         var encryptedData = encryptedMsg.substring(64);
