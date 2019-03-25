@@ -68,7 +68,7 @@ var GoogleAuth;
     var user = GoogleAuth.currentUser.get();
     var isAuthorized = user.hasGrantedScopes(SCOPE);
     if (isAuthorized) {
-	    $scope.populateData();
+	    populateData();
       $('#sign-in-or-out-button').html('Sign out');
       $('#revoke-access-button').css('display', 'inline-block');
       $('#auth-status').html('You are currently signed in and have granted ' +
@@ -92,4 +92,21 @@ function callGoogleApi(){
 request.execute(function(response) {
   console.log(response);
 });
+}
+
+var populateData=function(){		
+		gapi.client.drive.files.list({
+    fields: 'nextPageToken, files(id, name)',
+    pageToken: pageToken
+  }, function (err, res) {
+    if (err) {
+      // Handle error
+      console.error(err);
+    } else {
+      res.files.forEach(function (file) {
+        console.log('Found file: ', file.name, file.id);
+      });
+      pageToken = res.nextPageToken;
+    }
+  });
 }
