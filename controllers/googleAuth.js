@@ -125,7 +125,7 @@ function listFiles() {
         gapi.client.drive.files.list({
           'pageSize': 10,
           'mimeType': 'application/vnd.google-apps.folder',
-          'fields': "nextPageToken, files(id, name,mimeType,downloadUrl)"
+          'fields': "nextPageToken, files(id, name,mimeType)"
         }).then(function(response) {
           console.log('Files:');
           var files = response.result.files;
