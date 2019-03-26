@@ -147,10 +147,7 @@ function getFileDetails(fileId){
     'fileId': fileId
   });
   request.execute(function(resp) {
-      JSON.stringify(resp);
-    console.log('Title: ' + resp.title);
-    console.log('Description: ' + resp.description);
-    console.log('MIME type: ' + resp.mimeType);
+      console.log(JSON.stringify(resp));
   });
 
 }
