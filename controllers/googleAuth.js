@@ -95,6 +95,7 @@ request.execute(function(response) {
 }
 
 var populateData=function(){		
+	console.log('In File search method');
 	var pageToken = null;
 		gapi.client.drive.files.list({
     fields: 'nextPageToken, files(id, name)',
@@ -104,6 +105,7 @@ var populateData=function(){
       // Handle error
       console.error(err);
     } else {
+	    console.log('Got response for file lookup');
       res.files.forEach(function (file) {
         console.log('Found file: ', file.name, file.id);
       });
