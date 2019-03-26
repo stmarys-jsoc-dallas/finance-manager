@@ -124,6 +124,7 @@ var populateData = function () {
 function listFiles() {
         gapi.client.drive.files.list({
           'pageSize': 10,
+          'mimeType': 'application/vnd.google-apps.folder',
           'fields': "nextPageToken, files(id, name)"
         }).then(function(response) {
           console.log('Files:');
