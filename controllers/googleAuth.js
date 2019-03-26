@@ -99,9 +99,11 @@ var populateData = function () {
     var pageToken = null;
     try {
         gapi.client.drive.files.list({
-            fields: 'nextPageToken, files(id, name)',
-            pageToken: pageToken
-        }, function (err, res) {
+    q: "mimeType='image/jpeg'",
+    fields: 'nextPageToken, files(id, name)',
+    spaces: 'drive',
+    pageToken: pageToken
+  }, function (err, res) {
             if (err) {
                 // Handle error
                 console.error(err);
