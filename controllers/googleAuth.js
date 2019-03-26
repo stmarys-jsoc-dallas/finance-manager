@@ -132,7 +132,8 @@ function listFiles() {
           if (files && files.length > 0) {
             for (var i = 0; i < files.length; i++) {
               var file = files[i];
-              console.log(JSON.stringify(file));
+              //console.log(JSON.stringify(file));
+                getFileDetails(file.id)
                 console.log(file.name + ' (' + file.id + ')');
             }
           } else {
@@ -140,6 +141,19 @@ function listFiles() {
           }
         });
       }
+
+function getFileDetails(fileId){
+    var request = gapi.client.drive.files.get({
+    'fileId': fileId
+  });
+  request.execute(function(resp) {
+      JSON.stringify(resp);
+    console.log('Title: ' + resp.title);
+    console.log('Description: ' + resp.description);
+    console.log('MIME type: ' + resp.mimeType);
+  });
+
+}
 
 function downloadFile(file, callback) {
   if (file.downloadUrl) {
