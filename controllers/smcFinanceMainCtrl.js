@@ -283,7 +283,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
   };
   $scope.setSigninStatus = function(isSignedIn) {
     var user = $scope.GoogleAuth.currentUser.get();
-    var isAuthorized = user.hasGrantedScopes(SCOPE);
+    var isAuthorized = user.hasGrantedScopes($scope.SCOPE);
     if (isAuthorized) {
       listFiles();
       $("#sign-in-or-out-button").html("Sign out");
