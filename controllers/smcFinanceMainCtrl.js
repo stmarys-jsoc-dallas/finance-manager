@@ -301,7 +301,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
     }
   };
   $scope.updateSigninStatus = function(isSignedIn) {
-    setSigninStatus();
+    $scope.setSigninStatus();
   };
 
   $scope.callGoogleApi = function() {
