@@ -258,7 +258,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
         $scope.GoogleAuth.isSignedIn.listen($scope.updateSigninStatus);
         // Handle initial sign-in state. (Determine if user is already signed in.)
         var user = $scope.GoogleAuth.currentUser.get();
-        setSigninStatus();
+        $scope.setSigninStatus();
         // Call handleAuthClick function when user clicks on
         //      "Sign In/Authorize" button.
         $("#sign-in-or-out-button").click(function() {
