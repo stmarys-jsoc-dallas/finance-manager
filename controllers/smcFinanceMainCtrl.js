@@ -250,7 +250,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
         apiKey: apiKey,
         discoveryDocs: [discoveryUrl],
         clientId: clientID,
-        scope: SCOPE
+        scope: $scope.SCOPE
       })
       .then(function() {
         $scope.GoogleAuth = gapi.auth2.getAuthInstance();
