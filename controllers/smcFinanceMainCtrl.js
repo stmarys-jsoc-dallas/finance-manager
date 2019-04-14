@@ -285,7 +285,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
     var user = $scope.GoogleAuth.currentUser.get();
     var isAuthorized = user.hasGrantedScopes($scope.SCOPE);
     if (isAuthorized) {
-      listFiles();
+      $scope.listFiles();
       $("#sign-in-or-out-button").html("Sign out");
       $("#revoke-access-button").css("display", "inline-block");
       $("#auth-status").html(
