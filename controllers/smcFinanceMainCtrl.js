@@ -208,7 +208,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
           for (var i = 0; i < files.length; i++) {
             var file = files[i];
             //console.log(JSON.stringify(file));
-            getFileDetails(file.id);
+            $scope.getFileDetails(file.id);
             console.log(file.name + " (" + file.id + ")");
           }
         } else {
