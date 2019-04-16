@@ -227,8 +227,13 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
   $scope.listFilesInFolder = function(folderID) {
     console.log("Trying to find files in folder " + folderID);
     gapi.client.drive.files
-      .list({
+      /*.list({
         q: "parent_id in '" + folderID + "'"
+      })*/
+      .list({
+        pageSize: 10,
+        mimeType: "application/vnd.google-apps.folder",
+        fields: "nextPageToken, files(id, name,mimeType)"
       })
       .then(function(response) {
         var files = response.result.files;
