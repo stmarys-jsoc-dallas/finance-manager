@@ -207,13 +207,17 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
         if (files && files.length > 0) {
           for (var i = 0; i < files.length; i++) {
             var file = files[i];
-            console.log(JSON.stringify(file));
+            console.log("Found file " + file.name);
             if (
               file.mimeType == "application/vnd.google-apps.folder" &&
               file.name != undefined &&
               file.name.toLowerCase().startsWith("cashflow")
             ) {
               console.log("Found a cashflow folder " + file.name);
+              $scope.retrieveAllFilesInFolder(file.id, function(result) {
+                console.log("Found files in the folder");
+                console.log(JSON.stringify(result));
+              });
             }
             //$scope.getFileDetails(file.id);
           }
@@ -222,6 +226,29 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
         }
       });
   };
+
+  $scope.retrieveAllFilesInFolder = function(folderId, callback) {
+    var retrievePageOfChildren = function(request, result) {
+      request.execute(function(resp) {
+        result = result.concat(resp.items);
+        var nextPageToken = resp.nextPageToken;
+        if (nextPageToken) {
+          request = gapi.client.drive.children.list({
+            folderId: folderId,
+            pageToken: nextPageToken
+          });
+          retrievePageOfChildren(request, result);
+        } else {
+          callback(result);
+        }
+      });
+    };
+    var initialRequest = gapi.client.drive.children.list({
+      folderId: folderId
+    });
+    retrievePageOfChildren(initialRequest, []);
+  };
+
   $scope.GoogleAuth;
   $scope.SCOPE =
     "https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.photos.readonly https://www.googleapis.com/auth/drive.readonly";
