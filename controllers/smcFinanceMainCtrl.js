@@ -207,9 +207,15 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
         if (files && files.length > 0) {
           for (var i = 0; i < files.length; i++) {
             var file = files[i];
-            //console.log(JSON.stringify(file));
-            $scope.getFileDetails(file.id);
-            console.log(file.name + " (" + file.id + ")");
+            console.log(JSON.stringify(file));
+            if (
+              file.mimeType == "application/vnd.google-apps.folder" &&
+              file.name != undefined &&
+              file.name.toLowerCase().startsWith("cashflow")
+            ) {
+              console.log("Found a cashflow folder " + file.name);
+            }
+            //$scope.getFileDetails(file.id);
           }
         } else {
           console.log("No files found.");
