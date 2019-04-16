@@ -227,26 +227,26 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
       });
   };
 
-  $scope.retrieveAllFilesInFolder = function(folderId, callback) {
-    var retrievePageOfChildren = function(request, result) {
-      request.execute(function(resp) {
-        result = result.concat(resp.items);
-        var nextPageToken = resp.nextPageToken;
-        if (nextPageToken) {
-          request = gapi.client.drive.children.list({
-            folderId: folderId,
-            pageToken: nextPageToken
-          });
-          retrievePageOfChildren(request, result);
+  $scope.listFilesInFolder = function(folderID) {
+    console.log("Trying to find files in folder " + folderID);
+    gapi.client.drive.files
+      .list({
+        pageSize: 10,
+        mimeType: "application/vnd.google-apps.folder",
+        q: "parent_id in " + folderID,
+        fields: "nextPageToken, files(id, name,mimeType)"
+      })
+      .then(function(response) {
+        var files = response.result.files;
+        if (files && files.length > 0) {
+          for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            console.log("Found file " + file.name);
+          }
         } else {
-          callback(result);
+          console.log("No files found.");
         }
       });
-    };
-    var initialRequest = gapi.client.drive.children.list({
-      folderId: folderId
-    });
-    retrievePageOfChildren(initialRequest, []);
   };
 
   $scope.GoogleAuth;
