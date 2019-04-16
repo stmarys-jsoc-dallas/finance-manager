@@ -217,7 +217,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
               console.log("Found a cashflow folder " + file.name);
               $scope.listFilesInFolder(file.id);
             }
-            //$scope.getFileDetails(file.id);
+            $scope.getFileDetails(file.id);
           }
         } else {
           console.log("No files found.");
