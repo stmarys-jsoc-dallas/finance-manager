@@ -36,10 +36,10 @@
     <h4 class="modal-title">Select File</h4>
   </div>
   <div class="modal-body">
-    <p>Select google Folder</p>
+    <p>Select google Folder count is {{availableDataYearsInfo.length}}</p>
     <div>
       <ul>
-        <li ng-repeat="year in availableDataYearsInfo">year.folderName</li>
+        <li ng-repeat="year in availableDataYearsInfo">{{year.folderName}}</li>
       </ul>
     </div>
   </div>
