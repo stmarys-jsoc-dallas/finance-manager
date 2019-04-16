@@ -214,10 +214,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
               file.name.toLowerCase().startsWith("cashflow")
             ) {
               console.log("Found a cashflow folder " + file.name);
-              $scope.retrieveAllFilesInFolder(file.id, function(result) {
-                console.log("Found files in the folder");
-                console.log(JSON.stringify(result));
-              });
+              $scope.listFilesInFolder(file.id);
             }
             //$scope.getFileDetails(file.id);
           }
