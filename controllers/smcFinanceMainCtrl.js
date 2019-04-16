@@ -292,7 +292,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
         "You are currently signed in and have granted " + "access to this app."
       );
     } else {
-      handleAuthClick();
+      $scope.handleAuthClick();
       $("#sign-in-or-out-button").html("Sign In/Authorize");
       $("#revoke-access-button").css("display", "none");
       $("#auth-status").html(
