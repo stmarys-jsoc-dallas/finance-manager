@@ -232,7 +232,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
       })*/
       .list({
         pageSize: 10,
-        mimeType: "application/vnd.google-apps.folder",
+        q: "mimeType='application/vnd.google-apps.folder'",
         fields: "nextPageToken, files(id, name,mimeType)"
       })
       .then(function(response) {
@@ -240,7 +240,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
         if (files && files.length > 0) {
           for (var i = 0; i < files.length; i++) {
             var file = files[i];
-            console.log("Found file " + file.name);
+            console.log("2nd round search Found file " + file.name);
           }
         } else {
           console.log("No files found.");
