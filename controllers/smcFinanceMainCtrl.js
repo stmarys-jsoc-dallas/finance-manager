@@ -214,7 +214,15 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
               file.name.toLowerCase().startsWith("cashflow")
             ) {
               console.log("Found a cashflow folder " + file.name);
-              $scope.listFilesInFolder(file.id);
+              if ($scope.availableDataYearsInfo == undefined) {
+                $scope.availableDataYearsInfo = [];
+              }
+              var yearInfo = {};
+              yearInfo.folderName = file.name;
+              yearInfo.folderID = file.id;
+
+              $scope.availableDataYearsInfo.push(yearInfo);
+              //$scope.listFilesInFolder(file.id);
             }
             //$scope.getFileDetails(file.id);
           }
