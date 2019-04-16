@@ -202,13 +202,12 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
         fields: "nextPageToken, files(id, name,mimeType)"
       })
       .then(function(response) {
-        console.log("Files:");
+        //console.log("Files:");
         var files = response.result.files;
         if (files && files.length > 0) {
           for (var i = 0; i < files.length; i++) {
             var file = files[i];
             console.log("Found file " + file.name);
-            console.log(JSON.stringify(file));
             if (
               file.mimeType == "application/vnd.google-apps.folder" &&
               file.name != undefined &&
@@ -217,7 +216,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
               console.log("Found a cashflow folder " + file.name);
               $scope.listFilesInFolder(file.id);
             }
-            $scope.getFileDetails(file.id);
+            //$scope.getFileDetails(file.id);
           }
         } else {
           console.log("No files found.");
@@ -232,11 +231,6 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
         q: "'" + folderID + "' in parents",
         fields: "nextPageToken, files(id, name,mimeType)"
       })
-      /*.list({
-        pageSize: 10,
-        q: "mimeType='application/vnd.google-apps.folder'",
-        fields: "nextPageToken, files(id, name,mimeType)"
-      })*/
       .then(function(response) {
         var files = response.result.files;
         if (files && files.length > 0) {
