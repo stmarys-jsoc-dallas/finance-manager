@@ -227,14 +227,15 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
   $scope.listFilesInFolder = function(folderID) {
     console.log("Trying to find files in folder " + folderID);
     gapi.client.drive.files
-      /*.list({
-        q: "parent_id in '" + folderID + "'"
-      })*/
       .list({
+        q: "parentId in '" + folderID + "'",
+        fields: "nextPageToken, files(id, name,mimeType)"
+      })
+      /*.list({
         pageSize: 10,
         q: "mimeType='application/vnd.google-apps.folder'",
         fields: "nextPageToken, files(id, name,mimeType)"
-      })
+      })*/
       .then(function(response) {
         var files = response.result.files;
         if (files && files.length > 0) {
