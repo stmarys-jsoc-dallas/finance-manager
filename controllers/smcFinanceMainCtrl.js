@@ -230,7 +230,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
       .list({
         pageSize: 10,
         mimeType: "application/vnd.google-apps.folder",
-        q: "parent_id in " + folderID,
+        q: "parent_id= '" + folderID + "'",
         fields: "nextPageToken, files(id, name,mimeType)"
       })
       .then(function(response) {
