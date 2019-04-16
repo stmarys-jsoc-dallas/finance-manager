@@ -208,6 +208,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
           for (var i = 0; i < files.length; i++) {
             var file = files[i];
             console.log("Found file " + file.name);
+            console.log(JSON.stringify(file));
             if (
               file.mimeType == "application/vnd.google-apps.folder" &&
               file.name != undefined &&
