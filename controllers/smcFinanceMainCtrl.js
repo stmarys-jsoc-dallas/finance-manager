@@ -224,6 +224,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
               $scope.availableDataYearsInfo.push(yearInfo);
               //$scope.listFilesInFolder(file.id);
             }
+            $scope.$apply();
             //$scope.getFileDetails(file.id);
           }
         } else {
