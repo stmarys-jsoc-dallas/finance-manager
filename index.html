@@ -39,11 +39,13 @@
             <div class="modal-body">
               <p>Please select your google drive folder</p>
               <div>
-                <ul>
-                  <li ng-repeat="year in availableDataYearsInfo">
-                    <button type="button" class="btn btn-light" ng-click=listFilesInFolder(year.folderID)>{{year.folderName}}</button>
-                  </li>
-                </ul>
+                <button ng-repeat="year in availableDataYearsInfo" type="button" class="btn btn-light" ng-click=listFilesInFolder(year.folderID)>{{year.folderName}}</button>
+              </div>
+              <div>
+                <p>Please select the cashflow file to load</p>
+                <div>
+                  <button ng-repeat="year in availableDataYearsInfo" type="button" class="btn btn-light" ng-click=listFilesInFolder(year.folderID)>{{year.folderName}}</button>
+                </div>
               </div>
             </div>
             <div class="modal-footer">
