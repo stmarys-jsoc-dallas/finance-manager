@@ -37,10 +37,12 @@
               <h4 class="modal-title">Select File</h4>
             </div>
             <div class="modal-body">
-              <p>Select google Folder count is {{availableDataYearsInfo.length}}</p>
+              <p>Please select your google drive folder</p>
               <div>
                 <ul>
-                  <li ng-repeat="year in availableDataYearsInfo">{{year.folderName}}</li>
+                  <li ng-repeat="year in availableDataYearsInfo">
+                    <button type="button" class="btn btn-light" ng-click=listFilesInFolder(year.folderID)>{{year.folderName}}</button>
+                  </li>
                 </ul>
               </div>
             </div>
