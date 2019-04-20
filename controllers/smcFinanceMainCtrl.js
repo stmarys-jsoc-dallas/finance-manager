@@ -377,4 +377,8 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
       console.error(err);
     }
   };
+
+  $scope.checkScopeUpdate = function() {
+    alert($scope.availableDataYearsInfo.length);
+  };
 });
