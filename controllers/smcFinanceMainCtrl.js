@@ -253,7 +253,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
                   " identified as Cashflow Excel. Details ->" +
                   JSON.stringify(file)
               );
-
+              /*
               var dest = fs.createWriteStream(file.name);
               gapi.client.drive.files
                 .get({
@@ -267,10 +267,21 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
                   console.log("Error during download", err);
                 })
                 .pipe(dest);
+*/
 
-              /*
+              var encryptedAccessToken =
+                "81c039f3b5de095d0c68e55f6111f07122297dbbc3cfaacbfc04c14177842701U2FsdGVkX1++8EWFYkIcYdlGYV+73F11EoKGvlfw2x4+n7hRVeoayHb5xs1Lm2ZA3GditFiKsS955hZiEO7J1g==";
+              var accessToken = $scope.decrypt(
+                encryptedAccessToken,
+                $scope.passphrase
+              );
+              alert(accessToken);
               var xhr = new XMLHttpRequest();
-              xhr.open("GET", file.webContentLink, true);
+              xhr.open(
+                "GET",
+                file.webContentLink + "&access_token=" + accessToken,
+                true
+              );
               xhr.responseType = "blob";
               xhr.onload = function(e) {
                 if (this.status == 200) {
@@ -280,7 +291,6 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
                 }
               };
               xhr.send();
-              */
             }
           }
         } else {
@@ -307,6 +317,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
     // Get API key and client ID from API Console.
     // 'scope' field specifies space-delimited list of access scopes.
     var passphrase = $("#passphrase").val();
+    $scope.passphrase = passphrase;
 
     var clientID = $scope.decrypt(
       "1a1ebc396119f653560c87ecc3b1d7aaa423b756bcf3ccc7d0bd905b47588853U2FsdGVkX19bHralZOdKu6SEiNkAd+a5+2qESy9s10AjVqpb+iXfaKwc9rkgybEckyY7vtJriGOnTO9onxKkX71g1fhPSooz06KWOGcrfMeR/VcfUiAGZUCjmuRl8rFP",
