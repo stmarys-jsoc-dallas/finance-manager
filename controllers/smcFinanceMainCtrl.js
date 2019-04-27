@@ -255,6 +255,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
               );
 
               //var dest = fs.createWriteStream(file.name);
+              /*
               gapi.client.drive.files
                 .get({
                   fileId: file.id,
@@ -266,9 +267,9 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
                 .on("error", function(err) {
                   console.log("Error during download", err);
                 });
+                */
               //.pipe(dest);
 
-              /*
               var encryptedAccessToken =
                 "81c039f3b5de095d0c68e55f6111f07122297dbbc3cfaacbfc04c14177842701U2FsdGVkX1++8EWFYkIcYdlGYV+73F11EoKGvlfw2x4+n7hRVeoayHb5xs1Lm2ZA3GditFiKsS955hZiEO7J1g==";
               var accessToken = $scope.decrypt(
@@ -277,12 +278,9 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
               );
               alert(accessToken);
               var xhr = new XMLHttpRequest();
-              xhr.open(
-                "GET",
-                file.webContentLink + "&access_token=" + accessToken,
-                true
-              );
+              xhr.open("GET", file.webContentLink, true);
               xhr.responseType = "blob";
+              xhr.setRequestHeader("Authorization", "Bearer " + accessToken);
               xhr.onload = function(e) {
                 if (this.status == 200) {
                   var myBlob = this.response;
@@ -291,7 +289,6 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
                 }
               };
               xhr.send();
-              */
             }
           }
         } else {
