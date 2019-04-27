@@ -269,7 +269,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
                 });
                 */
               //.pipe(dest);
-
+              /*
               console.log("Attempt 1");
 
               var encryptedAccessToken =
@@ -296,7 +296,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
                 }
               };
               xhr.send("alt=media");
-
+*/
               console.log("Trying second option");
 
               var accessToken2 = gapi.auth2
@@ -315,6 +315,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
               xhr.responseType = "blob";
               xhr.onload = function() {
                 alert("Got response");
+                $scope.parseExcel(xhr.response);
                 //base64ArrayBuffer from https://gist.github.com/jonleighton/958841
                 //var base64 = $scope.base64ArrayBuffer(xhr.response);
 
