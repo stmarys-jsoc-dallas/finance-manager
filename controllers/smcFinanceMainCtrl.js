@@ -241,6 +241,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
               $scope.cashFlowFiles.push(cashflowExcel);
             }
           }
+          $scope.$apply();
         } else {
           console.log("No files found.");
         }
