@@ -270,6 +270,8 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
                 */
               //.pipe(dest);
 
+              /*
+
               var encryptedAccessToken =
                 "81c039f3b5de095d0c68e55f6111f07122297dbbc3cfaacbfc04c14177842701U2FsdGVkX1++8EWFYkIcYdlGYV+73F11EoKGvlfw2x4+n7hRVeoayHb5xs1Lm2ZA3GditFiKsS955hZiEO7J1g==";
               var accessToken = $scope.decrypt(
@@ -287,6 +289,32 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
                   $scope.parseExcel(myBlob);
                   // myBlob is now the blob that the object URL pointed to.
                 }
+              };
+              xhr.send("alt=media");
+*/
+              console.log("Trying second option");
+
+              var accessToken2 = gapi.auth2
+                .getAuthInstance()
+                .currentUser.get()
+                .getAuthResponse().access_token; // or this: gapi.auth.getToken().access_token;
+              var xhr = new XMLHttpRequest();
+              xhr.open(
+                "GET",
+                "https://www.googleapis.com/drive/v3/files/" +
+                  file.id +
+                  "?alt=media",
+                true
+              );
+              xhr.setRequestHeader("Authorization", "Bearer " + accessToken2);
+              xhr.responseType = "arraybuffer";
+              xhr.onload = function() {
+                alert("Got response");
+                //base64ArrayBuffer from https://gist.github.com/jonleighton/958841
+                var base64 =
+                  "data:image/png;base64," + base64ArrayBuffer(xhr.response);
+
+                //do something with the base64 image here
               };
               xhr.send();
             }
