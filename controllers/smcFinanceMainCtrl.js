@@ -238,7 +238,8 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
     gapi.client.drive.files
       .list({
         q: "'" + folderID + "' in parents",
-        fields: "nextPageToken, files(id, name,mimeType)"
+        fields:
+          "nextPageToken, files(id, name,mimeType,webContentLink,webViewLink)"
       })
       .then(function(response) {
         var files = response.result.files;
@@ -247,7 +248,11 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
             var file = files[i];
             console.log("Found file " + file.name + " in folder " + folderID);
             if (file.name.endsWith(".xlsx")) {
-              console.log(file.name + " identified as Cashflow Excel");
+              console.log(
+                file.name +
+                  " identified as Cashflow Excel. Details ->" +
+                  JSON.stringify(file)
+              );
             }
           }
         } else {
