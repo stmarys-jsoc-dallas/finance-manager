@@ -253,8 +253,8 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
                   " identified as Cashflow Excel. Details ->" +
                   JSON.stringify(file)
               );
-              /*
-              var dest = fs.createWriteStream(file.name);
+
+              //var dest = fs.createWriteStream(file.name);
               gapi.client.drive.files
                 .get({
                   fileId: file.id,
@@ -265,10 +265,10 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
                 })
                 .on("error", function(err) {
                   console.log("Error during download", err);
-                })
-                .pipe(dest);
-*/
+                });
+              //.pipe(dest);
 
+              /*
               var encryptedAccessToken =
                 "81c039f3b5de095d0c68e55f6111f07122297dbbc3cfaacbfc04c14177842701U2FsdGVkX1++8EWFYkIcYdlGYV+73F11EoKGvlfw2x4+n7hRVeoayHb5xs1Lm2ZA3GditFiKsS955hZiEO7J1g==";
               var accessToken = $scope.decrypt(
@@ -291,6 +291,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
                 }
               };
               xhr.send();
+              */
             }
           }
         } else {
