@@ -245,7 +245,10 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
         if (files && files.length > 0) {
           for (var i = 0; i < files.length; i++) {
             var file = files[i];
-            console.log("2nd round search Found file " + file.name);
+            console.log("Found file " + file.name + " in folder " + folderID);
+            if (file.name.endsWith(".xlsx")) {
+              console.log(file.name + " identified as Cashflow Excel");
+            }
           }
         } else {
           console.log("No files found.");
