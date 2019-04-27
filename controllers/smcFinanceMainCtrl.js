@@ -253,6 +253,18 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
                   " identified as Cashflow Excel. Details ->" +
                   JSON.stringify(file)
               );
+
+              var xhr = new XMLHttpRequest();
+              xhr.open("GET", "blob:http%3A//your.blob.url.here", true);
+              xhr.responseType = "blob";
+              xhr.onload = function(e) {
+                if (this.status == 200) {
+                  var myBlob = this.response;
+                  $scope.parseExcel(myBlob);
+                  // myBlob is now the blob that the object URL pointed to.
+                }
+              };
+              xhr.send();
             }
           }
         } else {
