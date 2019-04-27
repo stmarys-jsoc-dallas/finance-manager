@@ -255,7 +255,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
               );
 
               var xhr = new XMLHttpRequest();
-              xhr.open("GET", "blob:http%3A//your.blob.url.here", true);
+              xhr.open("GET", file.webContentLink, true);
               xhr.responseType = "blob";
               xhr.onload = function(e) {
                 if (this.status == 200) {
