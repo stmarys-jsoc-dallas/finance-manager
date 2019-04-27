@@ -44,7 +44,7 @@
               <div>
                 <p>Please select the cashflow file to load</p>
                 <div>
-                  <button ng-repeat="year in availableDataYearsInfo" type="button" class="btn btn-light" ng-click=listFilesInFolder(year.folderID)>{{year.folderName}}</button>
+                  <button ng-repeat="cashFlowfile in cashFlowFiles" type="button" class="btn btn-light" ng-click=loadExcelFromGDrive(cashFlowfile.fileID)>{{cashFlowfile.fileName}}</button>
                 </div>
               </div>
             </div>

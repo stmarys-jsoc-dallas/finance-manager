@@ -135,7 +135,6 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
           }
         }
       }
-      //alert($scope.transactions.length);
       $scope.$apply();
     };
 
@@ -164,24 +163,6 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
         continue;
       }
       $scope.parseExcel(f);
-    }
-  };
-
-  $scope.downloadFile = function(file, callback) {
-    if (file.downloadUrl) {
-      var accessToken = gapi.auth.getToken().access_token;
-      var xhr = new XMLHttpRequest();
-      xhr.open("GET", file.downloadUrl);
-      xhr.setRequestHeader("Authorization", "Bearer " + accessToken);
-      xhr.onload = function() {
-        callback(xhr.responseText);
-      };
-      xhr.onerror = function() {
-        callback(null);
-      };
-      xhr.send();
-    } else {
-      callback(null);
     }
   };
 
@@ -243,6 +224,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
       })
       .then(function(response) {
         var files = response.result.files;
+        $scope.cashFlowFiles = [];
         if (files && files.length > 0) {
           for (var i = 0; i < files.length; i++) {
             var file = files[i];
@@ -253,75 +235,10 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
                   " identified as Cashflow Excel. Details ->" +
                   JSON.stringify(file)
               );
-
-              //var dest = fs.createWriteStream(file.name);
-              /*
-              gapi.client.drive.files
-                .get({
-                  fileId: file.id,
-                  alt: "media"
-                })
-                .on("end", function() {
-                  console.log("Done");
-                })
-                .on("error", function(err) {
-                  console.log("Error during download", err);
-                });
-                */
-              //.pipe(dest);
-              /*
-              console.log("Attempt 1");
-
-              var encryptedAccessToken =
-                "81c039f3b5de095d0c68e55f6111f07122297dbbc3cfaacbfc04c14177842701U2FsdGVkX1++8EWFYkIcYdlGYV+73F11EoKGvlfw2x4+n7hRVeoayHb5xs1Lm2ZA3GditFiKsS955hZiEO7J1g==";
-              var accessToken = $scope.decrypt(
-                encryptedAccessToken,
-                $scope.passphrase
-              );
-              alert(accessToken);
-              var xhr = new XMLHttpRequest();
-              xhr.open(
-                "GET",
-                "https://www.googleapis.com/drive/v3/files/" + file.id,
-                true
-              );
-              xhr.responseType = "blob";
-              xhr.setRequestHeader("Authorization", "Bearer " + accessToken);
-              xhr.onload = function(e) {
-                if (this.status == 200) {
-                  console.log("Got Response");
-                  var myBlob = this.response;
-                  $scope.parseExcel(myBlob);
-                  // myBlob is now the blob that the object URL pointed to.
-                }
-              };
-              xhr.send("alt=media");
-*/
-              console.log("Trying second option");
-
-              var accessToken2 = gapi.auth2
-                .getAuthInstance()
-                .currentUser.get()
-                .getAuthResponse().access_token; // or this: gapi.auth.getToken().access_token;
-              var xhr = new XMLHttpRequest();
-              xhr.open(
-                "GET",
-                "https://www.googleapis.com/drive/v3/files/" +
-                  file.id +
-                  "?alt=media",
-                true
-              );
-              xhr.setRequestHeader("Authorization", "Bearer " + accessToken2);
-              xhr.responseType = "blob";
-              xhr.onload = function() {
-                alert("Got response");
-                $scope.parseExcel(xhr.response);
-                //base64ArrayBuffer from https://gist.github.com/jonleighton/958841
-                //var base64 = $scope.base64ArrayBuffer(xhr.response);
-
-                //do something with the base64 image here
-              };
-              xhr.send();
+              var cashflowExcel = {};
+              cashflowExcel.fileName = file.name;
+              cashflowExcel.fileID = file.id;
+              $scope.cashFlowFiles.push(cashflowExcel);
             }
           }
         } else {
@@ -457,56 +374,25 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
     }
   };
 
-  $scope.base64ArrayBuffer = function(arrayBuffer) {
-    var base64 = "";
-    var encodings =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-
-    var bytes = new Uint8Array(arrayBuffer);
-    var byteLength = bytes.byteLength;
-    var byteRemainder = byteLength % 3;
-    var mainLength = byteLength - byteRemainder;
-
-    var a, b, c, d;
-    var chunk;
-
-    // Main loop deals with bytes in chunks of 3
-    for (var i = 0; i < mainLength; i = i + 3) {
-      // Combine the three bytes into a single integer
-      chunk = (bytes[i] << 16) | (bytes[i + 1] << 8) | bytes[i + 2];
-
-      // Use bitmasks to extract 6-bit segments from the triplet
-      a = (chunk & 16515072) >> 18; // 16515072 = (2^6 - 1) << 18
-      b = (chunk & 258048) >> 12; // 258048   = (2^6 - 1) << 12
-      c = (chunk & 4032) >> 6; // 4032     = (2^6 - 1) << 6
-      d = chunk & 63; // 63       = 2^6 - 1
-
-      // Convert the raw binary segments to the appropriate ASCII encoding
-      base64 += encodings[a] + encodings[b] + encodings[c] + encodings[d];
-    }
-
-    // Deal with the remaining bytes and padding
-    if (byteRemainder == 1) {
-      chunk = bytes[mainLength];
-
-      a = (chunk & 252) >> 2; // 252 = (2^6 - 1) << 2
-
-      // Set the 4 least significant bits to zero
-      b = (chunk & 3) << 4; // 3   = 2^2 - 1
-
-      base64 += encodings[a] + encodings[b] + "==";
-    } else if (byteRemainder == 2) {
-      chunk = (bytes[mainLength] << 8) | bytes[mainLength + 1];
-
-      a = (chunk & 64512) >> 10; // 64512 = (2^6 - 1) << 10
-      b = (chunk & 1008) >> 4; // 1008  = (2^6 - 1) << 4
-
-      // Set the 2 least significant bits to zero
-      c = (chunk & 15) << 2; // 15    = 2^4 - 1
-
-      base64 += encodings[a] + encodings[b] + encodings[c] + "=";
-    }
-
-    return base64;
+  $scope.loadExcelFromGDrive = function(gDriveFileID) {
+    var accessToken = gapi.auth2
+      .getAuthInstance()
+      .currentUser.get()
+      .getAuthResponse().access_token; // or this: gapi.auth.getToken().access_token;
+    var xhr = new XMLHttpRequest();
+    xhr.open(
+      "GET",
+      "https://www.googleapis.com/drive/v3/files/" +
+        gDriveFileID +
+        "?alt=media",
+      true
+    );
+    xhr.setRequestHeader("Authorization", "Bearer " + accessToken);
+    xhr.responseType = "blob";
+    xhr.onload = function() {
+      alert("Got response");
+      $scope.parseExcel(xhr.response);
+    };
+    xhr.send();
   };
 });
