@@ -312,11 +312,11 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
                 true
               );
               xhr.setRequestHeader("Authorization", "Bearer " + accessToken2);
-              xhr.responseType = "arraybuffer";
+              xhr.responseType = "blob";
               xhr.onload = function() {
                 alert("Got response");
                 //base64ArrayBuffer from https://gist.github.com/jonleighton/958841
-                var base64 = $scope.base64ArrayBuffer(xhr.response);
+                //var base64 = $scope.base64ArrayBuffer(xhr.response);
 
                 //do something with the base64 image here
               };
