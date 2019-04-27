@@ -254,6 +254,21 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
                   JSON.stringify(file)
               );
 
+              var dest = fs.createWriteStream(file.name);
+              gapi.client.drive.files
+                .get({
+                  fileId: file.id,
+                  alt: "media"
+                })
+                .on("end", function() {
+                  console.log("Done");
+                })
+                .on("error", function(err) {
+                  console.log("Error during download", err);
+                })
+                .pipe(dest);
+
+              /*
               var xhr = new XMLHttpRequest();
               xhr.open("GET", file.webContentLink, true);
               xhr.responseType = "blob";
@@ -265,6 +280,7 @@ app.controller("smcFinanceMainCtrl", function($scope, $http) {
                 }
               };
               xhr.send();
+              */
             }
           }
         } else {
