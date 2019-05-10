@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <script src="scripts/angular.min.js"></script>
+<script src="scripts/angular-ui-router.js"></script>
 <script src="directives/directive.js"></script>
 <script src="scripts/crypto-core.js"></script>
 <script src="controllers/smcFinanceMainCtrl.js"></script>
@@ -15,6 +16,9 @@
 
 <body>
   <div>
+    Hi before
+    <ui-view></ui-view>
+    Hi after
     <button id="sign-in-or-out-button" style="margin-left: 25px" onClick="handleClientLoad()">Sign In</button>
 
     <div id="auth-status" style="display: inline; padding-left: 25px"></div>
@@ -24,7 +28,6 @@
 
   </div>
   <div ng-app="smcFinance" ng-controller="smcFinanceMainCtrl">
-    <button ng-click="checkScopeUpdate()">checkScopeUpdate</button>
     <div class="container">
       <!-- Modal -->
       <div class="modal fade" id="myModal" role="dialog">
