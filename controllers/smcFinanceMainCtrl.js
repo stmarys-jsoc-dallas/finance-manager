@@ -10,7 +10,7 @@ app.config(function($stateProvider) {
   var aboutState = {
     name: "about",
     url: "/about",
-    template: "<h3>Its the UI-Router hello world app!</h3>"
+    templateUrl: "views/hello.html"
   };
 
   $stateProvider.state(helloState);
