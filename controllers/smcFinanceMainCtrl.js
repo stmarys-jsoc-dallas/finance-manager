@@ -1,33 +1,4 @@
-var app = angular.module("smcFinance", ["ui.router"]);
-
-app.config(function($stateProvider) {
-  var helloState = {
-    name: "hello",
-    url: "/hello",
-    template: "<h3>hello world!</h3>"
-  };
-
-  var aboutState = {
-    name: "about",
-    url: "/about",
-    templateUrl: "views/hello.html"
-  };
-
-  $stateProvider.state(helloState);
-  $stateProvider.state(aboutState);
-});
-
 var thePassphrase = "";
-
-app.directive("customOnChange", function() {
-  return {
-    restrict: "A",
-    link: function(scope, element, attrs) {
-      var onChangeFunc = scope.$eval(attrs.customOnChange);
-      element.bind("change", onChangeFunc);
-    }
-  };
-});
 
 app.controller("smcFinanceMainCtrl", function($scope, $http) {
   $scope.mynewVariable = "Hi";
