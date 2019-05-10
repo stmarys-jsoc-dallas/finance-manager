@@ -16,9 +16,7 @@
 
 <body>
   <div>
-    Hi before
-    <ui-view></ui-view>
-    Hi after
+
     <button id="sign-in-or-out-button" style="margin-left: 25px" onClick="handleClientLoad()">Sign In</button>
 
     <div id="auth-status" style="display: inline; padding-left: 25px"></div>
@@ -28,6 +26,9 @@
 
   </div>
   <div ng-app="smcFinance" ng-controller="smcFinanceMainCtrl">
+    Hi before
+    <ui-view></ui-view>
+    Hi after
     <div class="container">
       <!-- Modal -->
       <div class="modal fade" id="myModal" role="dialog">
