@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div ng-controller="summaryCtrl">
+
+        <div class="centrediv" ng-show="transactions.length>0">
+            <hr>
+            <h3>Summary</h3>
+            <table border="1" style="padding:10">
+                <tr>
+                    <td>Total Transactions</td>
+                    <td>{{transactions.length}}</td>
+                </tr>
+                <tr>
+                    <td>Total Credit</td>
+                    <td>{{totalCredit}}</td>
+                </tr>
+                <tr>
+                    <td>Total Debit</td>
+                    <td>{{totalDebit}}</td>
+                </tr>
+                <tr>
+                    <td>Balance</td>
+                    <td>{{totalCredit-totalDebit}}</td>
+                </tr>
+            </table>
+            <br/>
+            <table ng-show=true class="table">
+                <tr>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>FROM/TO</th>
+                    <th>Check From/To</th>
+                    <th>Reason</th>
+                    <th>Amount</th>
+                </tr>
+                <tr ng-repeat="x in transactions">
+                    <td>
+                        {{x.date}}
+                    </td>
+                    <td>
+                        {{x.type}}
+                    </td>
+                    <td>
+                        {{x.fromOrTo}}
+                    </td>
+                    <td>
+                        {{x.checkFromOrTo}}
+                    </td>
+                    <td>
+                        {{x.reason}}
+                    </td>
+                    <td>
+                        {{x.amount}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

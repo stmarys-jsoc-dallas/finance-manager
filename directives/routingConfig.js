@@ -8,10 +8,16 @@ app.config(function($stateProvider) {
   var aboutState = {
     name: "about",
     url: "/about",
-    templateUrl: "views/hello.html",
-    controller: ""
+    templateUrl: "views/hello.html"
+  };
+
+  var summaryState = {
+    name: "summary",
+    url: "/summary",
+    templateUrl: "views/summary.html"
   };
 
   $stateProvider.state(helloState);
   $stateProvider.state(aboutState);
+  $stateProvider.state(summaryState);
 });
