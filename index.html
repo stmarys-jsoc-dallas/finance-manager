@@ -60,12 +60,12 @@
         <div>
           <div style="display:inline-block">Select google drive folder</div>
           <div style="display:inline-block">
-            <button ng-repeat="year in availableDataYearsInfo" type="button" class="btn btn-light" ng-click=listFilesInFolder(year.folderID)>{{year.folderName}}</button>
+            <button ng-repeat="year in availableDataYearsInfo" type="button" class="btn btn-secondary" ng-click=listFilesInFolder(year.folderID)>{{year.folderName}}</button>
           </div>
           <div>
             <div style="display:inline-block">Select file to load</div>
             <div style="display:inline-block">
-              <button ng-repeat="cashFlowfile in cashFlowFiles" type="button" class="btn btn-light" ng-click=loadExcelFromGDrive(cashFlowfile.fileID)>{{cashFlowfile.fileName}}</button>
+              <button ng-repeat="cashFlowfile in cashFlowFiles" type="button" class="btn btn-secondary" ng-click=loadExcelFromGDrive(cashFlowfile.fileID)>{{cashFlowfile.fileName}}</button>
             </div>
           </div>
         </div>
