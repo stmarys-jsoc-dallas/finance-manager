@@ -28,37 +28,6 @@
   </div>
   <div ng-app="smcFinance">
     <div ng-controller="mainCtrl">
-      <div class="container">
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog">
-          <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Select File</h4>
-              </div>
-              <div class="modal-body">
-                <p>Please select your google drive folder</p>
-                <div>
-                  <button ng-repeat="year in availableDataYearsInfo" type="button" class="btn btn-light" ng-click=listFilesInFolder(year.folderID)>{{year.folderName}}</button>
-                </div>
-                <div>
-                  <p>Please select the cashflow file to load</p>
-                  <div>
-                    <button ng-repeat="cashFlowfile in cashFlowFiles" type="button" class="btn btn-light" ng-click=loadExcelFromGDrive(cashFlowfile.fileID)>{{cashFlowfile.fileName}}</button>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
       <div class="modal fade" id="passwordPromptModal" tabindex="-1" role="dialog" aria-labelledby="passwordPromptModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document" ng-init="showPassPhrasePrompt()">
           <div class="modal-content">
@@ -85,16 +54,17 @@
       </div>
 
       <div class="centrediv">
-        Load Local File - <input class="centreInput" type="file" custom-on-change="uploadFile" />
+        <div style="display:inline-block">Load Local File - </div>
+        <input style="display:inline-block" class="centreInput" type="file" custom-on-change="uploadFile" />
         <hr>
         <div>
-          <p>Select google drive folder</p>
-          <div>
+          <div style="display:inline-block">Select google drive folder</div>
+          <div style="display:inline-block">
             <button ng-repeat="year in availableDataYearsInfo" type="button" class="btn btn-light" ng-click=listFilesInFolder(year.folderID)>{{year.folderName}}</button>
           </div>
           <div>
-            <p>Select file to load</p>
-            <div>
+            <div style="display:inline-block">Select file to load</div>
+            <div style="display:inline-block">
               <button ng-repeat="cashFlowfile in cashFlowFiles" type="button" class="btn btn-light" ng-click=loadExcelFromGDrive(cashFlowfile.fileID)>{{cashFlowfile.fileName}}</button>
             </div>
           </div>
