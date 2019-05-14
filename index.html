@@ -21,11 +21,7 @@
 <script src="https://apis.google.com/js/api.js"></script>
 
 <body>
-  <div>
-    <button id="sign-in-or-out-button" style="margin-left: 25px" onClick="handleClientLoad()">Sign In</button>
-    <div id="auth-status" style="display: inline; padding-left: 25px"></div>
-    <hr>
-  </div>
+
   <div ng-app="smcFinance">
     <div ng-controller="mainCtrl">
       <div class="modal fade" id="passwordPromptModal" tabindex="-1" role="dialog" aria-labelledby="passwordPromptModalLabel" aria-hidden="true">
@@ -54,25 +50,30 @@
       </div>
 
       <div class="centrediv">
-        <div style="display:inline-block">Load Local File - </div>
-        <input style="display:inline-block" class="centreInput" type="file" custom-on-change="uploadFile" />
-        <hr>
+        <div style="height:40px;">
+          <button id="sign-in-or-out-button" style="margin-left: 25px;margin-top:10px" onClick="handleClientLoad()">Sign In</button>
+          <div id="auth-status" style="display: inline; padding-left: 25px"></div>
+          <input style="margin-right: 25px;float: right;;margin-top:10px" class="centreInput" type="file" custom-on-change="uploadFile"
+          />
+          <hr>
+        </div>
         <div>
-          <div style="display:inline-block">Select google drive folder</div>
+
           <div style="display:inline-block">
-            <button ng-repeat="year in availableDataYearsInfo" type="button" class="btn btn-secondary" ng-click=listFilesInFolder(year.folderID)>{{year.folderName}}</button>
+            <div style="display:inline-block;margin-left:25px">Select google drive folder - </div>
+            <button ng-repeat="year in availableDataYearsInfo" style="margin-right: 10px" type="button" class="btn btn-primary" ng-click=listFilesInFolder(year.folderID)>{{year.folderName}}</button>
           </div>
-          <div>
-            <div style="display:inline-block">Select file to load</div>
+          <div style="margin-top:10px">
+            <div style="display:inline-block;margin-left:25px">Select file to load - </div>
             <div style="display:inline-block">
-              <button ng-repeat="cashFlowfile in cashFlowFiles" style="padding-left: 5px" type="button" class="btn btn-secondary" ng-click=loadExcelFromGDrive(cashFlowfile.fileID)>{{cashFlowfile.fileName}}</button>
+              <button ng-repeat="cashFlowfile in cashFlowFiles" style="margin-right: 10px" type="button" class="btn btn-primary" ng-click=loadExcelFromGDrive(cashFlowfile.fileID)>{{cashFlowfile.fileName}}</button>
             </div>
           </div>
         </div>
       </div>
     </div>
     <hr>
-    <div>
+    <div style="margin-left:25px;">
       <button type="button" class="btn btn-secondary" ui-sref="hello">Home</button>
       <button type="button" class="btn btn-secondary" ui-sref="about">About</button>
       <button type="button" class="btn btn-secondary" ui-sref="summary">Summary</button>
