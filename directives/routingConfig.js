@@ -1,8 +1,18 @@
 app.config(function($stateProvider) {
-  var helloState = {
-    name: "hello",
-    url: "/hello",
-    template: "<h3>hello world!</h3>"
+  var test = {
+    name: "test",
+    url: "/test",
+    template: "<h3>Test Template</h3>"
+  };
+  var financialReport = {
+    name: "financialReport",
+    url: "/financialReport",
+    template: "<h3>financialReport</h3>"
+  };
+  var missionFundState = {
+    name: "missionFund",
+    url: "/missionFund",
+    templateUrl: "views/missionFund.html"
   };
 
   var aboutState = {
@@ -17,7 +27,8 @@ app.config(function($stateProvider) {
     templateUrl: "views/summary.html"
   };
 
-  $stateProvider.state(helloState);
+  $stateProvider.state(missionFundState);
   $stateProvider.state(aboutState);
   $stateProvider.state(summaryState);
+  $stateProvider.state(financialReport);
 });
