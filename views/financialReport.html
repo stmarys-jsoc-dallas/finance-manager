@@ -24,7 +24,7 @@
                         <td> $ {{roundToTwo(creditAmount)}} &nbsp;</td>
                     </tr>
 
-                    <tr ng-repeat="index in (Object.keys(debitReport).length-Object.keys(creditReport).length)">
+                    <tr ng-repeat="index in additionalCreditRows">
                         <td></td>
                         <td></td>
                     </tr>
@@ -43,7 +43,7 @@
                         <td>{{debitItem}} &nbsp;</td>
                         <td> $ {{roundToTwo(debitAmount)}} &nbsp;</td>
                     </tr>
-                    <tr ng-repeat="index in (Object.keys(creditReport).length-Object.keys(debitReport).length)">
+                    <tr ng-repeat="index in additionalDebitRows">
                         <td></td>
                         <td></td>
                     </tr>

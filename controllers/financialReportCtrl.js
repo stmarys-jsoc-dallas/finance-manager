@@ -59,6 +59,15 @@ app.controller("financialReportCtrl", function($scope, $http) {
     $scope.debitReport = debitReport;
     $scope.totalDebit = $scope.roundToTwo(totalDebit);
     $scope.totalCredit = $scope.roundToTwo(totalCredit);
+    var debitOrCredit =
+      Object.keys(debitReport).length - Object.keys(creditReport).length;
+    if (debitOrCredit > 0) {
+      $scope.additionalCreditRows = debitOrCredit;
+      $scope.additionalDebitRows = 0;
+    } else if (debitOrCredit < 0) {
+      $scope.additionalDebitRows = debitOrCredit;
+      $scope.additionalCreditRows = 0;
+    }
   };
   $scope.roundToTwo = function(num) {
     return +(Math.round(num + "e+2") + "e-2");
