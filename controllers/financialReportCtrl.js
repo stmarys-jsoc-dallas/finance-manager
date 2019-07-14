@@ -20,4 +20,5 @@ app.controller("financialReportCtrl", function($scope, $http) {
     $scope.creditReport = creditReport;
     $scope.debitReport = debitReport;
   };
+  $scope.buildfinancialSummary();
 });
