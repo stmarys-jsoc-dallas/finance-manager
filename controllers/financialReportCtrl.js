@@ -2,6 +2,7 @@ app.controller("financialReportCtrl", function($scope, $http) {
   $scope.buildfinancialSummary = function() {
     var creditReport = {};
     var debitReport = {};
+    var transactions = $scope.transactions;
     for (
       var iTxnIndex = 0;
       iTxnIndex < $scope.transactions.length;
