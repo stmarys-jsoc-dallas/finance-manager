@@ -22,8 +22,23 @@ app.controller("financialReportCtrl", function($scope, $http) {
         debitReport[reason] += transactions[iTxnIndex].amount;
       }
     }
+    var totalCredit = 0;
+    for (var creditItem in creditReport) {
+      if (creditReport.hasOwnProperty(creditItem)) {
+        totalCredit += creditReport[creditItem];
+      }
+    }
+
+    var totalDebit = 0;
+    for (var debitItem in debitReport) {
+      if (debitReport.hasOwnProperty(debitItem)) {
+        totalDebit += debitReport[debitItem];
+      }
+    }
     $scope.creditReport = creditReport;
     $scope.debitReport = debitReport;
+    $scope.totalDebit = totalDebit;
+    $scope.totalCredit = totalCredit;
   };
   $scope.buildfinancialSummary();
 });

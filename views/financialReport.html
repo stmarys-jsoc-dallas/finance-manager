@@ -3,11 +3,32 @@
 
 <body>
     <div ng-controller="financialReportCtrl">
-        <table>
-            <tr ng-repeat="(creditItem, creditAmount)  in creditReport">
-                <td>{{creditItem}}</td>
-                <td>{{creditAmount}}</td>
-            </tr>
+        <div style="text-align:center">
+            <div style="float:left">
+                <table>
+                    <tr ng-repeat="(creditItem, creditAmount)  in creditReport">
+                        <td>{{creditItem}}</td>
+                        <td>{{creditAmount}}</td>
+                    </tr>
+                    <tr>
+                        <th>TOTAL</th>
+                        <th>{{totalCredit}}</th>
+                    </tr>
+                </table>
+            </div>
+            <div style="float:right">
+                <table>
+                    <tr ng-repeat="(debitItem, debitAmount)  in debitReport">
+                        <td>{{debitItem}}</td>
+                        <td>{{debitAmount}}</td>
+                    </tr>
+                    <tr>
+                        <th>TOTAL</th>
+                        <th>{{totalDebit}}</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
 </body>
 
