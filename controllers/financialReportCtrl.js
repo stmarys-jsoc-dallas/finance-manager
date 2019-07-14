@@ -3,22 +3,38 @@ app.controller("financialReportCtrl", function($scope, $http) {
     var creditReport = {};
     var debitReport = {};
     var transactions = $scope.transactions;
+    var totalIgnoredCredit = 0;
+    var totalIgnoredDebit = 0;
     for (
       var iTxnIndex = 0;
       iTxnIndex < $scope.transactions.length;
       iTxnIndex++
     ) {
       if (transactions[iTxnIndex].type == "CREDIT") {
+        if (transactions[iTxnIndex].ignoreFromFinancialReport !== "YES") {
+          totalIgnoredCredit += transactions[iTxnIndex].amount;
+        }
         var reason = transactions[iTxnIndex].reason;
-        if (reason !== undefined && reason !== "PREVIOUS YEAR") {
+        if (
+          reason !== undefined &&
+          reason !== "PREVIOUS YEAR" &&
+          transactions[iTxnIndex].ignoreFromFinancialReport !== "YES"
+        ) {
           if (creditReport[reason] == undefined) {
             creditReport[reason] = 0;
           }
           creditReport[reason] += transactions[iTxnIndex].amount;
         }
       } else {
+        if (transactions[iTxnIndex].ignoreFromFinancialReport !== "YES") {
+          totalIgnoredDebit += transactions[iTxnIndex].amount;
+        }
         var reason = transactions[iTxnIndex].reason;
-        if (reason !== undefined && reason !== "PREVIOUS YEAR") {
+        if (
+          reason !== undefined &&
+          reason !== "PREVIOUS YEAR" &&
+          transactions[iTxnIndex].ignoreFromFinancialReport !== "YES"
+        ) {
           if (debitReport[reason] == undefined) {
             debitReport[reason] = 0;
           }

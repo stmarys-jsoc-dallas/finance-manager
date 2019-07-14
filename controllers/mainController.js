@@ -113,7 +113,22 @@ app.controller("mainCtrl", function($rootScope, $scope, $http) {
             txn.reason = val.w;
           } else if (key.startsWith("F")) {
             var val = cashflow[key];
-            txn.amount = parseInt(val.v);
+            txn.amount = parseFloat(val.v);
+          } else if (key.startsWith("G")) {
+            var val = cashflow[key];
+            txn.isMember = val.w;
+          } else if (key.startsWith("H")) {
+            var val = cashflow[key];
+            txn.bankCleared = val.w;
+          } else if (key.startsWith("I")) {
+            var val = cashflow[key];
+            txn.bankClearedDate = val.w;
+          } else if (key.startsWith("J")) {
+            var val = cashflow[key];
+            txn.modeOfTxn = val.w;
+          } else if (key.startsWith("L")) {
+            var val = cashflow[key];
+            txn.ignoreFromFinancialReport = val.w;
           }
           tempTransactionObj[index] = txn;
         }

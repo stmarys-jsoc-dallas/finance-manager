@@ -3,7 +3,14 @@
 
 <body>
     <div ng-controller="financialReportCtrl">
-        <div style="margin: auto;">
+        <div style="display:inline-block;margin:auto">
+            <div style="display:inline-block">
+                <div ng-if="totalIgnoredDebit!=totalIgnoredCredit">
+                    <div>Discrepency Found in ignored transactions for report!</div>
+                    <div>Total Ignored Credit is {{totalIgnoredCredit}}</div>
+                    <div>Total Ignored Debit is {{totalIgnoredDebit}}</div>
+                </div>
+            </div>
             <div>
                 <h2>Financial Report</h2>
             </div>
@@ -47,6 +54,7 @@
                 </table>
             </div>
         </div>
+    </div>
     </div>
 </body>
 
