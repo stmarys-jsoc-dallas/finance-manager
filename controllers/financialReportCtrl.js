@@ -2,7 +2,7 @@ app.controller("financialReportCtrl", function($scope, $http) {
   $scope.buildfinancialSummary = function() {
     var creditReport = {};
     var debitReport = {};
-    for (var iTxnIndex = 0; i < transactions.length; iTxnIndex++) {
+    for (var iTxnIndex = 0; i < $scope.transactions.length; iTxnIndex++) {
       if (transactions[iTxnIndex].type == "CREDIT") {
         var reason = transactions[iTxnIndex].reason;
         if (creditReport[reason] == undefined) {
