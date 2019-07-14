@@ -3,7 +3,11 @@
 
 <body>
     <div ng-controller="financialReportCtrl">
-        {{transactions.length}}
+        <table>
+            <tr ng-repeat="(creditItem, creditAmount)  in creditReport">
+                <td>creditItem</td>
+                <td>creditAmount</td>
+            </tr>
     </div>
 </body>
 
