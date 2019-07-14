@@ -107,7 +107,7 @@ app.controller("mainCtrl", function($rootScope, $scope, $http) {
             txn.fromOrTo = val.w;
           } else if (key.startsWith("D")) {
             var val = cashflow[key];
-            txn.checkFromOrTo = val.w;
+            txn.subReason = val.w;
           } else if (key.startsWith("E")) {
             var val = cashflow[key];
             txn.reason = val.w;
