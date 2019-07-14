@@ -7,7 +7,7 @@ app.config(function($stateProvider) {
   var financialReport = {
     name: "financialReport",
     url: "/financialReport",
-    template: "<h3>financialReport</h3>"
+    templateUrl: "views/financialReport.html"
   };
   var missionFundState = {
     name: "missionFund",
