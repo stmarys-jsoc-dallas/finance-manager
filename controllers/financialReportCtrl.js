@@ -10,7 +10,7 @@ app.controller("financialReportCtrl", function($scope, $http) {
     ) {
       if (transactions[iTxnIndex].type == "CREDIT") {
         var reason = transactions[iTxnIndex].reason;
-        if (reason != undefined) {
+        if (reason !== undefined && reason !== "PREVIOUS YEAR") {
           if (creditReport[reason] == undefined) {
             creditReport[reason] = 0;
           }
@@ -18,7 +18,7 @@ app.controller("financialReportCtrl", function($scope, $http) {
         }
       } else {
         var reason = transactions[iTxnIndex].reason;
-        if (reason != undefined) {
+        if (reason !== undefined && reason !== "PREVIOUS YEAR") {
           if (debitReport[reason] == undefined) {
             debitReport[reason] = 0;
           }

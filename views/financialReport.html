@@ -4,8 +4,14 @@
 <body>
     <div ng-controller="financialReportCtrl">
         <div style="margin: auto;">
+            <div>
+                <h2>Financial Report</h2>
+            </div>
             <div style="display:inline-block">
                 <table style="text-align:left">
+                    <tr>
+                        <td colspan="2">CREDIT</td>
+                    </tr>
                     <tr ng-repeat="(creditItem, creditAmount)  in creditReport">
                         <td>{{creditItem}}</td>
                         <td> ${{creditAmount}} </td>
@@ -23,6 +29,9 @@
             </div>
             <div style="display:inline-block">
                 <table style="text-align:left">
+                    <tr>
+                        <td colspan="2">DEBIT</td>
+                    </tr>
                     <tr ng-repeat="(debitItem, debitAmount)  in debitReport">
                         <td>{{debitItem}}</td>
                         <td> ${{debitAmount}} </td>
