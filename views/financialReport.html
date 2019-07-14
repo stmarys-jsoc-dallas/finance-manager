@@ -16,12 +16,10 @@
             </div>
             <div style="display:inline-block">
                 <table style="text-align:left">
-                    <tr>
-                        <td colspan="2">CREDIT</td>
-                    </tr>
+                    c
                     <tr ng-repeat="(creditItem, creditAmount)  in creditReport">
                         <td>{{creditItem}}</td>
-                        <td> ${{creditAmount}} </td>
+                        <td> $ {{creditAmount}} &nbsp;</td>
                     </tr>
 
                     <tr ng-repeat="index in (debitReport.length-creditReport.length)">
@@ -30,18 +28,18 @@
                     </tr>
                     <tr>
                         <th>TOTAL</th>
-                        <th> ${{totalCredit}} </th>
+                        <th> $ {{totalCredit}} &nbsp;</th>
                     </tr>
                 </table>
             </div>
             <div style="display:inline-block">
                 <table style="text-align:left">
-                    <tr>
-                        <td colspan="2">DEBIT</td>
+                    <tr style="text-align:center">
+                        <th colspan="2">DEBIT</th>
                     </tr>
                     <tr ng-repeat="(debitItem, debitAmount)  in debitReport">
                         <td>{{debitItem}}</td>
-                        <td> ${{debitAmount}} </td>
+                        <td> $ {{debitAmount}} &nbsp;</td>
                     </tr>
                     <tr ng-repeat="index in (creditReport.length-debitReport.length)">
                         <td></td>
@@ -49,7 +47,7 @@
                     </tr>
                     <tr>
                         <th>TOTAL</th>
-                        <th> ${{totalDebit}} </th>
+                        <th> $ {{totalDebit}} &nbsp;</th>
                     </tr>
                 </table>
             </div>
