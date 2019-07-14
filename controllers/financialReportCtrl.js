@@ -10,16 +10,20 @@ app.controller("financialReportCtrl", function($scope, $http) {
     ) {
       if (transactions[iTxnIndex].type == "CREDIT") {
         var reason = transactions[iTxnIndex].reason;
-        if (creditReport[reason] == undefined) {
-          creditReport[reason] = 0;
+        if (reason != undefined) {
+          if (creditReport[reason] == undefined) {
+            creditReport[reason] = 0;
+          }
+          creditReport[reason] += transactions[iTxnIndex].amount;
         }
-        creditReport[reason] += transactions[iTxnIndex].amount;
       } else {
         var reason = transactions[iTxnIndex].reason;
-        if (debitReport[reason] == undefined) {
-          debitReport[reason] = 0;
+        if (reason != undefined) {
+          if (debitReport[reason] == undefined) {
+            debitReport[reason] = 0;
+          }
+          debitReport[reason] += transactions[iTxnIndex].amount;
         }
-        debitReport[reason] += transactions[iTxnIndex].amount;
       }
     }
     var totalCredit = 0;

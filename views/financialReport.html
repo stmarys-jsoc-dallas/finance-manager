@@ -3,28 +3,37 @@
 
 <body>
     <div ng-controller="financialReportCtrl">
-        <div style="text-align:center">
-            <div style="float:left">
-                <table>
+        <div style="margin: auto;">
+            <div style="display:inline-block">
+                <table style="text-align:left">
                     <tr ng-repeat="(creditItem, creditAmount)  in creditReport">
                         <td>{{creditItem}}</td>
-                        <td>{{creditAmount}}</td>
+                        <td> ${{creditAmount}} </td>
+                    </tr>
+
+                    <tr ng-repeat="index in (debitReport.length-creditReport.length)">
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <th>TOTAL</th>
-                        <th>{{totalCredit}}</th>
+                        <th> ${{totalCredit}} </th>
                     </tr>
                 </table>
             </div>
-            <div style="float:right">
-                <table>
+            <div style="display:inline-block">
+                <table style="text-align:left">
                     <tr ng-repeat="(debitItem, debitAmount)  in debitReport">
                         <td>{{debitItem}}</td>
-                        <td>{{debitAmount}}</td>
+                        <td> ${{debitAmount}} </td>
+                    </tr>
+                    <tr ng-repeat="index in (creditReport.length-debitReport.length)">
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <th>TOTAL</th>
-                        <th>{{totalDebit}}</th>
+                        <th> ${{totalDebit}} </th>
                     </tr>
                 </table>
             </div>
