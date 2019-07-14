@@ -15,9 +15,7 @@ app.controller("financialReportCtrl", function($scope, $http) {
           totalIgnoredCredit += transactions[iTxnIndex].amount;
         }
         var reason = transactions[iTxnIndex].reason;
-        if (reason === "Recurring Payments") {
-          reason = transactions[iTxnIndex].subReason;
-        }
+
         if (
           reason !== undefined &&
           reason !== "PREVIOUS YEAR" &&
@@ -33,6 +31,9 @@ app.controller("financialReportCtrl", function($scope, $http) {
           totalIgnoredDebit += transactions[iTxnIndex].amount;
         }
         var reason = transactions[iTxnIndex].reason;
+        if (reason === "Recurring Payments") {
+          reason = transactions[iTxnIndex].subReason;
+        }
         if (
           reason !== undefined &&
           reason !== "PREVIOUS YEAR" &&
