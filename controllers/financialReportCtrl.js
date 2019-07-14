@@ -66,10 +66,10 @@ app.controller("financialReportCtrl", function($scope, $http) {
     var debitOrCredit =
       Object.keys(debitReport).length - Object.keys(creditReport).length;
     if (debitOrCredit > 0) {
-      $scope.additionalCreditRows = debitOrCredit;
+      $scope.additionalCreditRows = new Array(debitOrCredit);
       $scope.additionalDebitRows = 0;
     } else if (debitOrCredit < 0) {
-      $scope.additionalDebitRows = debitOrCredit;
+      $scope.additionalDebitRows = new Array(debitOrCredit);
       $scope.additionalCreditRows = 0;
     }
   };
