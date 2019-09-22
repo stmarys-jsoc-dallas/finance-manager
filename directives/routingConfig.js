@@ -14,7 +14,7 @@ app.config(function($stateProvider) {
     url: "/missionFund",
     templateUrl: "views/missionFund.html"
   };
-  var emailMembersState = {
+  var emailMembers = {
     name: "emailMembers",
     url: "/emailMembers",
     templateUrl: "views/emailMembers.html"
@@ -35,4 +35,5 @@ app.config(function($stateProvider) {
   $stateProvider.state(aboutState);
   $stateProvider.state(summaryState);
   $stateProvider.state(financialReport);
+  $stateProvider.state(emailMembers);
 });
