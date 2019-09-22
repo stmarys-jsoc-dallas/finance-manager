@@ -191,7 +191,7 @@ app.controller("mainCtrl", function($rootScope, $scope, $http) {
     gapi.client.drive.files
       .list({
         pageSize: 10,
-        mimeType: "application/vnd.google-apps.folder",
+        q: "mimeType=application/vnd.google-apps.folder",
         fields: "nextPageToken, files(id, name,mimeType)"
       })
       .then(function(response) {
