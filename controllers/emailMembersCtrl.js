@@ -17,7 +17,7 @@ app.controller("emailMembersCtrl", function($scope, $http) {
           memberDetail = {};
         }
         if (memberDetail.credits == undefined) {
-          memberDetail.credits = {};
+          memberDetail.credits = [];
         }
         memberDetail.credits.push(transaction);
 
