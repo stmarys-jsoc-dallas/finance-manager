@@ -25,6 +25,7 @@ app.controller("emailMembersCtrl", function($scope, $http) {
       }
     }
     $scope.memberDetails = memberDetails;
+    $scope.apply();
   };
   $scope.calculateEmailData();
 });
