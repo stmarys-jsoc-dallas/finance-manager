@@ -377,6 +377,9 @@ app.controller("mainCtrl", function($rootScope, $scope, $http) {
     // Call the initClient function after the modules load.
     gapi.load("client:auth2", $scope.initClient);
   };
+  $scope.initGmail = function() {
+    gapi.client.load("gmail", "v1", $scope.initClient);
+  };
 
   $scope.initClient = function() {
     // Retrieve the discovery document for version 3 of Google Drive API.
