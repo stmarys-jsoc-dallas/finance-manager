@@ -375,7 +375,7 @@ app.controller("mainCtrl", function($rootScope, $scope, $http) {
   $scope.handleClientLoad = function() {
     // Load the API's client and auth2 modules.
     // Call the initClient function after the modules load.
-    gapi.load("client:auth2", $scope.initClient);
+    gapi.load("client:auth2", $scope.initGmail);
   };
   $scope.initGmail = function() {
     gapi.client.load("gmail", "v1", $scope.initClient);
