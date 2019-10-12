@@ -86,14 +86,23 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
       }
     }
   };
+  $scope.sendEmailtoMembers = function() {
+    for (let member in $scope.memberDetails) {
+      let emailContent = document.getElementById("id-" + member).outerHTML;
+
+      let headers_obj = {
+        To: "eldhose.jacob@live.com",
+        Subject: "Hello this is gapi",
+        "Content-Type": "text/html; charset=UTF-8"
+      };
+
+      $scope.sendEmail(headers_obj, emailContent);
+      break;
+    }
+  };
   $scope.sendEmail = function(headers_obj, message, callback) {
     var email = "";
 
-    headers_obj = {
-      To: "eldhose.jacob@live.com",
-      Subject: "Hello this is gapi"
-    };
-    message = "Hi, this is from gapi";
     callback = function(response) {
       alert(JSON.stringify(response));
     };
