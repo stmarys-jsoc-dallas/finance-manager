@@ -13,6 +13,8 @@ app.controller("mainCtrl", function($rootScope, $scope, $http) {
   $scope.mynewVariable = "Hi";
   $scope.ejbInputText = "helo";
   $rootScope.transactions = [];
+  $rootScope.memberDirectory = {};
+  $rootScope.receivables = {};
   $scope.showFileSelectionModal = function() {
     $("#myModal").modal("show");
   };
@@ -147,6 +149,8 @@ app.controller("mainCtrl", function($rootScope, $scope, $http) {
           }
         }
       }
+      loadMemberDirectory(workbook);
+      loadReceivables(workbook);
       $scope.$apply();
     };
 
@@ -155,6 +159,111 @@ app.controller("mainCtrl", function($rootScope, $scope, $http) {
     };
 
     reader.readAsBinaryString(file);
+  };
+
+  loadMemberDirectory = function(workbook) {
+    var memberDirectory = workbook.Sheets["Member Directory"];
+    var memberDetails = [];
+    for (var key in memberDirectory) {
+      if (memberDirectory.hasOwnProperty(key)) {
+        var index = key.substring(1, key.length);
+        if (index == "1") {
+          continue;
+        }
+
+        var member = memberDetails[index - 1];
+        if (member == undefined) {
+          member = {};
+        }
+
+        if (key.startsWith("B")) {
+          var val = memberDirectory[key];
+          member.name = val.w;
+        } else if (key.startsWith("E")) {
+          var val = memberDirectory[key];
+          member.email = val.w;
+        }
+        memberDetails[index - 1] = member;
+      }
+    }
+
+    $rootScope.memberDirectory = {};
+    for (
+      var memberIndex = 0;
+      memberIndex < memberDetails.length;
+      memberIndex++
+    ) {
+      if (memberDetails[memberIndex] != undefined) {
+        $rootScope.memberDirectory[memberDetails[memberIndex].name] = {
+          email: memberDetails[memberIndex].email
+        };
+      }
+    }
+  };
+
+  loadReceivables = function(workbook) {
+    var receivables = workbook.Sheets["Receivables"];
+    var receivableArray = [];
+    for (var key in receivables) {
+      if (receivables.hasOwnProperty(key)) {
+        var index = key.substring(1, key.length);
+        if (index == "1") {
+          continue;
+        }
+
+        var receivableEntry = receivableArray[index - 1];
+        if (receivableEntry == undefined) {
+          receivableEntry = {};
+        }
+
+        if (key.startsWith("A")) {
+          var val = receivables[key];
+          receivableEntry.name = val.w;
+        } else if (key.startsWith("B")) {
+          var val = receivables[key];
+          receivableEntry.category = val.w;
+        } else if (key.startsWith("D")) {
+          var val = receivables[key];
+          receivableEntry.amountPaid = parseFloat(val.v);
+        } else if (key.startsWith("E")) {
+          var val = receivables[key];
+          receivableEntry.amountPending = parseFloat(val.v);
+        }
+        receivableArray[index - 1] = receivableEntry;
+      }
+    }
+
+    $rootScope.receivables = {};
+    for (
+      let receievableArrayIndex = 0;
+      receievableArrayIndex < receivableArray.length;
+      receievableArrayIndex++
+    ) {
+      if (
+        receivableArray[receievableArrayIndex] != undefined &&
+        receivableArray[receievableArrayIndex].amountPending > 0
+      ) {
+        var memberName = receivableArray[receievableArrayIndex].name;
+        if ($rootScope.receivables[memberName] === undefined) {
+          $rootScope.receivables[memberName] = {};
+          $rootScope.receivables[memberName].dues = [];
+          $rootScope.receivables[memberName].collectibles = [];
+        }
+        if (
+          receivableArray[receievableArrayIndex].category.startsWith(
+            "Subscription"
+          )
+        ) {
+          $rootScope.receivables[memberName].dues.push(
+            receivableArray[receievableArrayIndex]
+          );
+        } else {
+          $rootScope.receivables[memberName].collectibles.push(
+            receivableArray[receievableArrayIndex]
+          );
+        }
+      }
+    }
   };
 
   $scope.uploadFile = function(event) {
@@ -407,5 +516,8 @@ app.controller("mainCtrl", function($rootScope, $scope, $http) {
       $scope.parseExcel(xhr.response);
     };
     xhr.send();
+  };
+  $scope.toggleButtonClick = function(clickedButton) {
+    $scope.clickedButton = clickedButton;
   };
 });

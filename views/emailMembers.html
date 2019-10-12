@@ -2,10 +2,114 @@
 <html>
 
 <body>
-    <div ng-controller="emailMembersCtrl">
-        <h1>We are at email members</h1>
-        <h1 ng-repeat="(key, value) in in memberDetails">{{key}}</h1>
-    </div>
+    <div ng-controller="emailMembersCtrl" style="margin:5px">
+        <div class="inlineBlock">
+            <div>YEAR: <br/>
+                <input ng-model="year"></div>
+        </div>
+        <div class="inlineBlock">
+            <div>Usual Contributions:
+                <div ng-repeat="usualContribution in voluntaryContributions"><input ng-model="usualContribution.category"><br></div>
+            </div>
+        </div>
+        <div class="inlineBlock">
+            <div>Treasurer Name: <input ng-model="treasurerName"></div>
+        </div>
+
+        <div class="inlineBlock">
+            <button type="button" class="btn btn-primary" ng-click="calculateEmailData()">Refresh</button>
+        </div>
+
+        <div><button ng-click="sendEmail()"><h1>SEND EMAIL</h1></button>
+
+            <hr>
+            <div ng-repeat="(memberName, memberDetail) in memberDetails">
+                Dear {{memberName}},
+                <br/>
+                <br/>
+                <p>Thank you for your continued support to our church</p>
+                <div ng-show="memberDetail.credits!=undefined">
+                    <p>Below is the information regarding the payments you have done to our Church till today for year {{year}}</p>
+                    <table>
+                        <tr>
+                            <th>Transaction Date</th>
+                            <th>Category</th>
+                            <th>Amount</th>
+                            <th>Mode Of Payment</th>
+                        </tr>
+                        <tr ng-repeat="creditTxn in memberDetail.credits">
+                            <td>{{creditTxn.date}}</td>
+                            <td>{{creditTxn.reason}}</td>
+                            <td>$ {{creditTxn.amount}}</td>
+                            <td>{{creditTxn.modeOfTxn}}</td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div ng-show="(memberDetail.dues!=undefined && memberDetail.dues.length>0) ||( memberDetail.collectibles!=undefined && memberDetail.collectibles.length>0)">
+                    <br/>
+                    <p>Below are the payments remaining for year {{year}}</p>
+                    <br/>
+                    <div ng-show="memberDetail.dues!=undefined && memberDetail.dues.length>0">
+                        <p><b>** Mandatory Dues **</b></p>
+                        <table>
+                            <tr>
+                                <th>Category</th>
+                                <th>Amount Paid</th>
+                                <th>Amount Pending</th>
+                            </tr>
+                            <tr ng-repeat="due in memberDetail.dues">
+                                <td>{{due.category}}</td>
+                                <td>$ {{due.amountPaid}}</td>
+                                <td>$ {{due.amountPending}}</td>
+                            </tr>
+                        </table>
+                        <br>
+                    </div>
+
+                    <div ng-show="memberDetail.collectibles!=undefined && memberDetail.collectibles.length>0">
+                        <p><b>** Collectibles **</b></p>
+                        <table>
+                            <tr>
+                                <th>Category</th>
+                                <th>Amount Paid</th>
+                                <th>Amount Pending</th>
+
+                            </tr>
+                            <tr ng-repeat="receivable in memberDetail.collectibles">
+                                <td>{{receivable.category}}</td>
+                                <td>$ {{receivable.amountPaid}}</td>
+                                <td>$ {{receivable.amountPending}}</td>
+                            </tr>
+                        </table>
+                        <br>
+                    </div>
+                    <div ng-show="memberDetail.voluntaryContributions!=undefined">
+                        <p><b>**Voluntary Contributions**</b></p>
+                        <table>
+                            <tr>
+                                <th>Category</th>
+                                <th>Suggested Amount</th>
+                            </tr>
+                            <tr ng-repeat="voluntaryItem in memberDetail.voluntaryContributions">
+                                <td>{{voluntaryItem.category}}</td>
+                                <td>$ {{voluntaryItem.suggestedAmount}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br/>
+                    <p>Please see if you can make the payments at the earliest. Your email is {{memberDetail.contact.email}}</p>
+                </div>
+                <p>Thank you,</p>
+                <span>{{treasurerName}}</span>
+                <br>
+                <span>Treausurer,</span>
+                <br>
+                <span>St. Mary's JSO Church</span>
+                <br/>
+                <hr>
+            </div>
+        </div>
 </body>
 
 </html>
