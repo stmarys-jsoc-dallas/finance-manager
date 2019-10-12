@@ -371,7 +371,7 @@ app.controller("mainCtrl", function($rootScope, $scope, $http) {
 
   $scope.GoogleAuth;
   $scope.SCOPE =
-    "https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.photos.readonly https://www.googleapis.com/auth/drive.readonly";
+    "https://www.googleapis.com/auth/drive.metadata.readonly https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/drive.photos.readonly https://www.googleapis.com/auth/drive.readonly https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.send";
   $scope.handleClientLoad = function() {
     // Load the API's client and auth2 modules.
     // Call the initClient function after the modules load.
