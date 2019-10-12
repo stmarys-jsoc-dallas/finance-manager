@@ -88,7 +88,7 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
   };
   $scope.sendEmailtoMembers = function() {
     for (let member in $scope.memberDetails) {
-      let emailContent = document.getElementById("id-" + member).outerHTML;
+      let emailContent = document.getElementById(member).outerHTML;
 
       let headers_obj = {
         To: "eldhose.jacob@live.com",
