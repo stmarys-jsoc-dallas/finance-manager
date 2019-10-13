@@ -500,6 +500,8 @@ app.controller("mainCtrl", function($rootScope, $scope, $http) {
   };
 
   $scope.loadExcelFromGDrive = function(gDriveFileID) {
+    gDriveFileID = e.target.value;
+    alert(gDriveFileID);
     var accessToken = gapi.auth2
       .getAuthInstance()
       .currentUser.get()

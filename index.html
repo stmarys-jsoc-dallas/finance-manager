@@ -66,9 +66,12 @@
             <button ng-repeat="year in availableDataYearsInfo" style="margin-right: 10px" type="button" class="btn btn-primary" ng-click=listFilesInFolder(year.folderID)>{{year.folderName}}</button>
           </div>
           <div style="margin-top:10px">
-            <div style="display:inline-block;margin-left:25px">Select file to load - </div>
+            <div style="display:inline-block;margin-left:25px">Select file and click LOAD - </div>
             <div style="display:inline-block">
-              <b ng-repeat="cashFlowfile in cashFlowFiles" style="margin: 10px;cursor: pointer" ng-click=loadExcelFromGDrive(cashFlowfile.fileID)><u>{{cashFlowfile.fileName}}</u></b>
+              <select ng-change="loadExcelFromGDrive(e)">
+              <option ng-repeat="cashFlowfile in cashFlowFiles" value={{cashFlowfile.fileID}}><u>{{cashFlowfile.fileName}}</u></option>
+              </select>
+              <button>LOAD</button>
             </div>
           </div>
         </div>
