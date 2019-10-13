@@ -499,8 +499,8 @@ app.controller("mainCtrl", function($rootScope, $scope, $http) {
     }
   };
 
-  $scope.loadExcelFromGDrive = function(gDriveFileID) {
-    gDriveFileID = e.target.value;
+  $scope.loadExcelFromGDrive = function() {
+    gDriveFileID = document.getElementById("gDriveFileSelectionDropDown").value;
     alert(gDriveFileID);
     var accessToken = gapi.auth2
       .getAuthInstance()

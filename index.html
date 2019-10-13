@@ -22,6 +22,12 @@
 <!--<script src="controllers/googleAuth.js"></script>-->
 <script src="https://apis.google.com/js/api.js"></script>
 
+<head>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+</head>
+
 <body>
 
   <div ng-app="smcFinance">
@@ -68,10 +74,10 @@
           <div style="margin-top:10px">
             <div style="display:inline-block;margin-left:25px">Select file and click LOAD - </div>
             <div style="display:inline-block">
-              <select ng-change="loadExcelFromGDrive(e)">
+              <select id="gDriveFileSelectionDropDown">
               <option ng-repeat="cashFlowfile in cashFlowFiles" value={{cashFlowfile.fileID}}><u>{{cashFlowfile.fileName}}</u></option>
               </select>
-              <button>LOAD</button>
+              <button ng-click="loadExcelFromGDrive()">LOAD</button>
             </div>
           </div>
         </div>
