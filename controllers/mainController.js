@@ -337,6 +337,7 @@ app.controller("mainCtrl", function($rootScope, $scope, $http) {
 
   $scope.listFilesInFolder = function(folderID) {
     console.log("Trying to find files in folder " + folderID);
+    $scope.selectedGDriveFolder = folderID;
     gapi.client.drive.files
       .list({
         q: "'" + folderID + "' in parents",
@@ -501,7 +502,6 @@ app.controller("mainCtrl", function($rootScope, $scope, $http) {
 
   $scope.loadExcelFromGDrive = function() {
     gDriveFileID = document.getElementById("gDriveFileSelectionDropDown").value;
-    alert(gDriveFileID);
     var accessToken = gapi.auth2
       .getAuthInstance()
       .currentUser.get()

@@ -71,19 +71,19 @@
             <div style="display:inline-block;margin-left:25px">Select google drive folder - </div>
             <button ng-repeat="year in availableDataYearsInfo" style="margin-right: 10px" type="button" class="btn btn-primary" ng-click=listFilesInFolder(year.folderID)>{{year.folderName}}</button>
           </div>
-          <div style="margin-top:10px">
+          <div style="margin-top:10px" ng-show="selectedGDriveFolder!=undefined">
             <div style="display:inline-block;margin-left:25px">Select file and click LOAD - </div>
             <div style="display:inline-block">
               <select id="gDriveFileSelectionDropDown">
               <option ng-repeat="cashFlowfile in cashFlowFiles" value={{cashFlowfile.fileID}}><u>{{cashFlowfile.fileName}}</u></option>
               </select>
-              <button ng-click="loadExcelFromGDrive()">LOAD</button>
+              <button class="btn btn-secondary" ng-click="loadExcelFromGDrive()">LOAD</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <hr>
+    <hr style="height:2px;background-color:black">
     <div style="margin-left:25px;">
       <button type="button" class="btn btn-primary" ui-sref="summary">Quick Summary</button>
       <button type="button" class="btn btn-primary" ui-sref="financialReport">Financial Report</button>
