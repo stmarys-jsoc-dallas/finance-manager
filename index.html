@@ -32,67 +32,71 @@
 
   <div ng-app="smcFinance">
     <div ng-controller="mainCtrl">
-      <div class="modal fade" id="passwordPromptModal" tabindex="-1" role="dialog" aria-labelledby="passwordPromptModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document" ng-init="showPassPhrasePrompt()">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="passwordPromptModalLabel">Enter password to retrieve data</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <div style="height: 155px">
+        <div class="modal fade" id="passwordPromptModal" tabindex="-1" role="dialog" aria-labelledby="passwordPromptModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document" ng-init="showPassPhrasePrompt()">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="passwordPromptModalLabel">Enter password to retrieve data</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="form-group">
-                  <label for="passphrase">Password</label>
-                  <input type="text" class="form-control" id="passphrase" placeholder="Enter Password" ng-model="passphrase">
-                </div>
-              </form>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="passphrase">Password</label>
+                    <input type="text" class="form-control" id="passphrase" placeholder="Enter Password" ng-model="passphrase">
+                  </div>
+                </form>
 
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" ng-click="decryptURLsAndGetData()" data-dismiss="modal">Submit</button>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" ng-click="decryptURLsAndGetData()" data-dismiss="modal">Submit</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="centrediv">
-        <div style="height:100;">
-          <button id="sign-in-or-out-button" style="margin-left: 25px;margin-top:10px" onClick="handleClientLoad()">Sign In</button>
-          <div id="auth-status" style="display: inline; padding-left: 25px"></div>
-          <input style="margin-right: 25px;float: right;;margin-top:10px" class="centreInput" type="file" custom-on-change="uploadFile"
-          />
-          <hr>
-        </div>
-        <div>
-
-          <div style="display:inline-block">
-            <div style="display:inline-block;margin-left:25px">Select google drive folder - </div>
-            <button ng-repeat="year in availableDataYearsInfo" style="margin-right: 10px" type="button" class="btn btn-primary" ng-click=listFilesInFolder(year.folderID)>{{year.folderName}}</button>
+        <div class="centrediv">
+          <div style="height:100;">
+            <button id="sign-in-or-out-button" style="margin-left: 25px;margin-top:10px" onClick="handleClientLoad()">Sign In</button>
+            <div id="auth-status" style="display: inline; padding-left: 25px"></div>
+            <input style="margin-right: 25px;float: right;;margin-top:10px" class="centreInput" type="file" custom-on-change="uploadFile"
+            />
+            <hr>
           </div>
-          <div style="margin-top:10px" ng-show="cashFlowFiles!=undefined && cashFlowFiles.length>0">
-            <div style="display:inline-block;margin-left:25px">Select file and click LOAD - </div>
+          <div>
+
             <div style="display:inline-block">
-              <select id="gDriveFileSelectionDropDown">
+              <div style="display:inline-block;margin-left:25px">Select google drive folder - </div>
+              <button ng-repeat="year in availableDataYearsInfo" style="margin-right: 10px" type="button" class="btn btn-primary" ng-click=listFilesInFolder(year.folderID)>{{year.folderName}}</button>
+            </div>
+            <div style="margin-top:10px" ng-show="cashFlowFiles!=undefined && cashFlowFiles.length>0">
+              <div style="display:inline-block;margin-left:25px">Select file and click LOAD - </div>
+              <div style="display:inline-block">
+                <select id="gDriveFileSelectionDropDown">
               <option ng-repeat="cashFlowfile in cashFlowFiles" value={{cashFlowfile.fileID}}><u>{{cashFlowfile.fileName}}</u></option>
               </select>
-              <button class="btn btn-secondary" ng-click="loadExcelFromGDrive()">LOAD</button>
+                <button class="btn btn-secondary" ng-click="loadExcelFromGDrive()">LOAD</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <hr style="height:2px;background-color:black">
-    <div style="margin-left:25px;">
-      <button type="button" class="btn btn-primary" ui-sref="summary">Quick Summary</button>
-      <button type="button" class="btn btn-primary" ui-sref="financialReport">Financial Report</button>
-      <button type="button" class="btn btn-primary" ui-sref="missionFund">Mission Fund</button>
-      <button type="button" class="btn btn-primary" ui-sref="emailMembers">Email Members</button>
+      <hr style="height:2px;background-color:black">
+      <div style="margin-left:25px;">
+        <button type="button" class="btn btn-primary" ui-sref="summary">Quick Summary</button>
+        <button type="button" class="btn btn-primary" ui-sref="financialReport">Financial Report</button>
+        <button type="button" class="btn btn-primary" ui-sref="missionFund">Mission Fund</button>
+        <button type="button" class="btn btn-primary" ui-sref="emailMembers">Email Members</button>
 
+      </div>
+      <hr>
     </div>
-    <hr>
-    <ui-view></ui-view>
+    <div style="overflow:auto">
+      <ui-view></ui-view>
+    </div>
   </div>
 
 </body>

@@ -2,21 +2,22 @@
 <html>
 
 <body>
-    <div ng-controller="emailMembersCtrl" style="margin:5px">
-        <div class="inlineBlock">
-            <div>YEAR: <br/>
+    <div ng-controller="emailMembersCtrl" style="margin:5px" ng-init="formLoad()">
+        <div class="smcFormInput">
+            <div><b>YEAR:</b> <br/>
                 <input ng-model="year"></div>
         </div>
-        <div class="inlineBlock">
-            <div>Usual Contributions:
+        <div class="smcFormInput">
+            <div><b>Usual Contributions:</b>
                 <div ng-repeat="usualContribution in voluntaryContributions"><input ng-model="usualContribution.category"><br></div>
             </div>
         </div>
-        <div class="inlineBlock">
-            <div>Treasurer Name: <input ng-model="treasurerName"></div>
+        <div class="smcFormInput">
+            <div><b>Treasurer Name:</b><br/>
+                <input ng-model="treasurerName"></div>
         </div>
 
-        <div class="inlineBlock">
+        <div class="smcFormInput">
             <button type="button" class="btn btn-primary" ng-click="calculateEmailData()">Refresh</button>
         </div>
 

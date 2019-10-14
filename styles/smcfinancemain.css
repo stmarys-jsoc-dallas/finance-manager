@@ -27,6 +27,7 @@ td {
   padding: 2px;
 }
 
-.inlineBlock {
+.smcFormInput {
   display: inline-block;
+  padding: 5px;
 }

@@ -4,6 +4,9 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
     { category: "Church Perunnal" },
     { category: "Onam Lunch", suggestedAmount: "25" }
   ];
+  $scope.formLoad = function() {
+    $scope.memberDetails = {};
+  };
   $scope.year = new Date().getFullYear();
 
   $scope.calculateEmailData = function() {
