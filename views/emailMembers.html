@@ -20,13 +20,19 @@
         <div class="smcFormInput">
             <button type="button" class="btn btn-primary" ng-click="calculateEmailData()">Refresh</button>
         </div>
-
-        <div><button ng-click="sendEmailtoMembers()"><h1>SEND EMAIL</h1></button>
+        <div class="smcFormInput">
+            <button ng-click="sendEmailtoMembers()" class="btn btn-danger">Send Emails</button>
+        </div>
+        <div>
 
             <hr>
             <div ng-repeat="(memberName, memberDetail) in memberDetails">
                 <div id={{memberName}}>
                     <style>
+                        table {
+                            border-collapse: collapse;
+                        }
+
                         table,
                         th,
                         td {
@@ -62,8 +68,13 @@
                         <p>Below are the payments remaining for year {{year}}</p>
                         <br/>
                         <div ng-show="memberDetail.dues!=undefined && memberDetail.dues.length>0">
-                            <p><b>** Mandatory Dues **</b></p>
+                            <p><b></b></p>
                             <table>
+                                <tr>
+                                    <td colspan="3" style="text-align:center">
+                                        <h4>Mandatory Dues</h4>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <th>Category</th>
                                     <th>Amount Paid</th>
@@ -79,8 +90,12 @@
                         </div>
 
                         <div ng-show="memberDetail.collectibles!=undefined && memberDetail.collectibles.length>0">
-                            <p><b>** Collectibles **</b></p>
                             <table>
+                                <tr>
+                                    <th colspan="3" style="text-align:center">
+                                        <h4>Collectibles</h4>
+                                    </th>
+                                </tr>
                                 <tr>
                                     <th>Category</th>
                                     <th>Amount Paid</th>
@@ -96,8 +111,12 @@
                             <br>
                         </div>
                         <div ng-show="memberDetail.voluntaryContributions!=undefined">
-                            <p><b>**Voluntary Contributions**</b></p>
                             <table>
+                                <tr>
+                                    <td colspan="2" style="text-align:center">
+                                        <h4>Voluntary Contributions</h4>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <th>Category</th>
                                     <th>Suggested Amount</th>

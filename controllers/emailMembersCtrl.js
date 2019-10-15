@@ -1,7 +1,7 @@
 app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
   $scope.memberDetails = {};
   $scope.voluntaryContributions = [
-    { category: "Church Perunnal" },
+    { category: "Perunnal Share" },
     { category: "Onam Lunch", suggestedAmount: "25" }
   ];
   $scope.formLoad = function() {
