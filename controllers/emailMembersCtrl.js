@@ -91,9 +91,10 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
   };
   $scope.sendEmailtoMembers = function() {
     for (let member in $scope.memberDetails) {
-      let emailContent = "<script>.ng-hide {display: none;}/script>";
+      let emailContent = "<html><script>.ng-hide {display: none;}/script>";
       emailContent += document.getElementById(member).outerHTML;
-
+      emailContent += "</html>";
+      alert(emailContent);
       let headers_obj = {
         To: "eldhose.jacob@live.com",
         Subject: "Hello this is gapi",
