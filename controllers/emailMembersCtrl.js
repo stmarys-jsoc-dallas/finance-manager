@@ -92,10 +92,14 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
   };
   $scope.sendEmailtoMembers = function() {
     for (let member in $scope.memberDetails) {
-      let emailContent = "<html><script>.ng-hide {display: none;}</script>";
-      emailContent += document.getElementById(member).outerHTML;
-      emailContent += "</html>";
-      alert(emailContent);
+      let memberDataDiv = document.getElementById(member);
+      let elementsToHide = memberDataDiv.getElementsByClassName("ng-hide");
+      if (elementsToHide != undefined) {
+        for (let i = 0; i < elementsToHide.length; i++) {
+          elementsToHide[i].remove();
+        }
+      }
+      let emailContent = memberDataDiv.outerHTML;
       let headers_obj = {
         To: "eldhose.jacob@live.com",
         Subject: $scope.emailSubject,
