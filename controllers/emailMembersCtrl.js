@@ -1,5 +1,6 @@
 app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
   $scope.memberDetails = {};
+  $scope.emailSubject = "Financial Contributions Update";
   $scope.voluntaryContributions = [
     { category: "Perunnal Share" },
     { category: "Onam Lunch", suggestedAmount: "25" }
@@ -91,13 +92,13 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
   };
   $scope.sendEmailtoMembers = function() {
     for (let member in $scope.memberDetails) {
-      let emailContent = "<html><script>.ng-hide {display: none;}/script>";
+      let emailContent = "<html><script>.ng-hide {display: none;}</script>";
       emailContent += document.getElementById(member).outerHTML;
       emailContent += "</html>";
       alert(emailContent);
       let headers_obj = {
         To: "eldhose.jacob@live.com",
-        Subject: "Hello this is gapi",
+        Subject: $scope.emailSubject,
         "Content-Type": "text/html; charset=UTF-8"
       };
 
