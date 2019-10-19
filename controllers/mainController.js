@@ -523,7 +523,7 @@ app.controller("mainCtrl", function($rootScope, $scope, $http, $state) {
     xhr.onload = function() {
       $scope.initializeScope();
       $scope.parseExcel(xhr.response);
-      $state.reload();
+      $state.go($state.$current, null, { reload: true });
       $rootScope.hideLoaderButton();
     };
     xhr.send();
