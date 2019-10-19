@@ -16,9 +16,11 @@
 <script src="scripts/xlsx.full.min.js"></script>
 <script src="scripts/jszip.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="styles/smcfinancemain.css">
+<link rel="stylesheet" href="styles/common.css">
 <!--<script src="controllers/googleAuth.js"></script>-->
 <script src="https://apis.google.com/js/api.js"></script>
 
@@ -29,6 +31,14 @@
 </head>
 
 <body>
+  <div id="loader" class="loaderFullPageTransparent">
+    <div class="lds-ellipsis">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
 
   <div ng-app="smcFinance">
     <div ng-controller="mainCtrl">
@@ -78,7 +88,8 @@
                 <select id="gDriveFileSelectionDropDown">
               <option ng-repeat="cashFlowfile in cashFlowFiles" value={{cashFlowfile.fileID}}><u>{{cashFlowfile.fileName}}</u></option>
               </select>
-                <button class="btn btn-secondary" ng-click="loadExcelFromGDrive()">LOAD</button>
+
+                <button id="loaderButton" class="buttonload" ng-click="loadExcelFromGDrive()"><i id="loaderButton" class="fa fa-spinner fa-spin"></i>LOAD</button>
               </div>
             </div>
           </div>

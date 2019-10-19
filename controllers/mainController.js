@@ -9,7 +9,7 @@ app.directive("customOnChange", function() {
     }
   };
 });
-app.controller("mainCtrl", function($rootScope, $scope, $http) {
+app.controller("mainCtrl", function($rootScope, $scope, $http, $state) {
   $scope.mynewVariable = "Hi";
   $scope.ejbInputText = "helo";
   $rootScope.transactions = [];
@@ -501,6 +501,7 @@ app.controller("mainCtrl", function($rootScope, $scope, $http) {
   };
 
   $scope.loadExcelFromGDrive = function() {
+    $rootScope.showLoaderInButton();
     gDriveFileID = document.getElementById("gDriveFileSelectionDropDown").value;
     var accessToken = gapi.auth2
       .getAuthInstance()
@@ -517,12 +518,27 @@ app.controller("mainCtrl", function($rootScope, $scope, $http) {
     xhr.setRequestHeader("Authorization", "Bearer " + accessToken);
     xhr.responseType = "blob";
     xhr.onload = function() {
-      alert("Got response");
       $scope.parseExcel(xhr.response);
+      $state.reload();
+      $rootScope.hideLoaderButton();
     };
     xhr.send();
   };
   $scope.toggleButtonClick = function(clickedButton) {
     $scope.clickedButton = clickedButton;
   };
+  $rootScope.showLoader = function() {
+    $("#loader").css("display", "inline-block");
+  };
+  $rootScope.hideLoader = function() {
+    $("#loader").css("display", "none");
+  };
+  $rootScope.showLoaderInButton = function() {
+    $("#loaderButton").css("display", "inline-block");
+  };
+  $rootScope.hideLoaderButton = function() {
+    $("#loaderButton").css("display", "none");
+  };
+  $rootScope.hideLoader();
+  $rootScope.hideLoaderButton();
 });
