@@ -6,9 +6,9 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
     { category: "Onam Lunch", suggestedAmount: "25" }
   ];
   $scope.formLoad = function() {
-    $scope.memberDetails = {};
+    $scope.year = new Date().getFullYear();
+    $scope.calculateEmailData();
   };
-  $scope.year = new Date().getFullYear();
 
   $scope.calculateEmailData = function() {
     $scope.memberDetails = {};
