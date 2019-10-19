@@ -10,11 +10,13 @@ app.directive("customOnChange", function() {
   };
 });
 app.controller("mainCtrl", function($rootScope, $scope, $http, $state) {
-  $scope.mynewVariable = "Hi";
-  $scope.ejbInputText = "helo";
-  $rootScope.transactions = [];
-  $rootScope.memberDirectory = {};
-  $rootScope.receivables = {};
+  $scope.initializeScope = function() {
+    $rootScope.transactions = [];
+    $rootScope.memberDirectory = {};
+    $rootScope.receivables = {};
+  };
+  $scope.initializeScope();
+
   $scope.showFileSelectionModal = function() {
     $("#myModal").modal("show");
   };
@@ -283,6 +285,7 @@ app.controller("mainCtrl", function($rootScope, $scope, $http, $state) {
         alert("Please load an Excel file");
         continue;
       }
+      $scope.initializeScope();
       $scope.parseExcel(f);
     }
   };
@@ -518,6 +521,7 @@ app.controller("mainCtrl", function($rootScope, $scope, $http, $state) {
     xhr.setRequestHeader("Authorization", "Bearer " + accessToken);
     xhr.responseType = "blob";
     xhr.onload = function() {
+      $scope.initializeScope();
       $scope.parseExcel(xhr.response);
       $state.reload();
       $rootScope.hideLoaderButton();
