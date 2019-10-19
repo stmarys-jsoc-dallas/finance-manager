@@ -32,10 +32,16 @@
             <button ng-click="sendEmailtoMembers()" class="btn btn-danger">Send Emails</button>
         </div>
         <div>
+            <span>Member Count - {{memberCount}}</span>
+        </div>
+        <div>
 
             <hr>
             <div ng-repeat="(memberName, memberDetail) in memberDetails">
-                <div id={{memberName}}>
+                <div ng-click="memberDetail.show=!memberDetail.show" style="padding:10px;width:100%;background-color:#DCDCDC"><b> -- {{memberName}} -- </b><span ng-show="memberDetail.contact!=undefined && memberDetail.contact.email!=undefined">(email:- {{memberDetail.contact.email}})</span>
+                    <span ng-show="memberDetail.contact==undefined || memberDetail.contact.email==undefined" style="color:red">NO EMAIL !!</span>
+                    <span ng-show="memberDetail.credits==undefined && memberDetail.dues==undefined && memberDetail.collectibles==undefined" style="color:red">NO DATA !!</span><br/>                    </div>
+                <div id={{memberName}} ng-show="memberDetail.show==true">
                     <style>
                         table {
                             border-collapse: collapse;

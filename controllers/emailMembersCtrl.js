@@ -39,6 +39,7 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
           let memberDetail = memberDetails[transaction.fromOrTo];
           if (memberDetail === undefined) {
             memberDetail = {};
+            memberDetail.show = false;
           }
           if (memberDetail.credits == undefined) {
             memberDetail.credits = [];
@@ -52,14 +53,14 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
     $scope.memberDetails = memberDetails;
     for (var key in $scope.memberDirectory) {
       if ($scope.memberDirectory.hasOwnProperty(key)) {
-        if ($scope.memberDetails[key] != undefined) {
-          if ($rootScope.receivables[key] != undefined) {
-            $scope.memberDetails[key].dues = $rootScope.receivables[key].dues;
-            $scope.memberDetails[key].collectibles =
-              $rootScope.receivables[key].collectibles;
-          }
-        } else {
+        if ($scope.memberDetails[key] === undefined) {
           $scope.memberDetails[key] = {};
+        }
+        $scope.memberDetails[key].show = false;
+        if ($rootScope.receivables[key] != undefined) {
+          $scope.memberDetails[key].dues = $rootScope.receivables[key].dues;
+          $scope.memberDetails[key].collectibles =
+            $rootScope.receivables[key].collectibles;
         }
         if ($scope.memberDetails[key].credits != undefined) {
           for (var voluntaryItem in $scope.voluntaryContributions) {
@@ -89,6 +90,7 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
         $scope.memberDetails[key].contact = $scope.memberDirectory[key];
       }
     }
+    $scope.memberCount = Object.keys($scope.memberDetails).length;
   };
   $scope.sendEmailtoMembers = function() {
     for (let member in $scope.memberDetails) {
