@@ -2,7 +2,7 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
   $scope.memberDetails = {};
   $scope.emailSubject = "Financial Contributions Update";
   $scope.voluntaryContributions = [
-    { category: "Perunnal Share" },
+    { category: "Perunnal Share", suggestedAmount: "-" },
     { category: "Onam Lunch", suggestedAmount: "25" }
   ];
   $scope.formLoad = function() {

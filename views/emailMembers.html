@@ -8,8 +8,12 @@
                 <input ng-model="year"></div>
         </div>
         <div class="smcFormInput">
-            <div><b>Usual Contributions:</b>
-                <div ng-repeat="usualContribution in voluntaryContributions"><input ng-model="usualContribution.category"><br></div>
+            <div><b>Voluntary Contributions:</b>
+                <div ng-repeat="usualContribution in voluntaryContributions">
+                    <i>Category:</i><input ng-model="usualContribution.category">&nbsp;
+                    <i>Suggested Amount:</i><input ng-model="usualContribution.suggestedAmount">
+                    <i class="fa fa-plus" style="cursor:pointer" aria-hidden="true"></i>
+                    <i class="fa fa-minus" style="cursor:pointer" aria-hidden="true"></i><br></div>
             </div>
         </div>
         <div class="smcFormInput">
