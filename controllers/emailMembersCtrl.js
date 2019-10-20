@@ -123,7 +123,6 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
 
         $scope.sendEmail(headers_obj, emailContent, () => {
           $scope.memberDetails[member].emailSent = true;
-          $scope.apply();
         });
       }
       break;
