@@ -121,7 +121,9 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
           "Content-Type": "text/html; charset=UTF-8"
         };
 
-        $scope.sendEmail(headers_obj, emailContent);
+        $scope.sendEmail(headers_obj, emailContent, () => {
+          $scope.memberDetails[member].emailSent = true;
+        });
       }
       break;
     }

@@ -60,6 +60,7 @@
             <hr>
             <div ng-repeat="(memberName, memberDetail) in memberDetails">
                 <div ng-click="memberDetail.show=!memberDetail.show" style="padding:10px;width:100%;background-color:#DCDCDC"><b> -- {{memberName}} -- </b><span ng-show="memberDetail.contact!=undefined && memberDetail.contact.email!=undefined">(email:- {{memberDetail.contact.email}})</span>
+                    <i class="fa fa-check" aria-hidden="true" style="color:green" ng-show="memberDetail.emailSent===true">SENT</i>
                     <span ng-show="memberDetail.contact==undefined || memberDetail.contact.email==undefined" style="color:red">NO EMAIL !!</span>
                     <span ng-show="memberDetail.credits==undefined && memberDetail.dues==undefined && memberDetail.collectibles==undefined" style="color:red">NO DATA !!</span><br/>                    </div>
                 <div id={{memberName}} ng-show="showDetailsForAll==true || memberDetail.show==true">
@@ -163,7 +164,7 @@
                             </table>
                         </div>
                         <br/>
-                        <p>Please see if you can make the payments at the earliest. Your email is {{memberDetail.contact.email}}</p>
+                        <p>Please see if you can make the payments at the earliest.</p>
                     </div>
                     <p>Please do let us know if you see any discrepencies. </p>
 
