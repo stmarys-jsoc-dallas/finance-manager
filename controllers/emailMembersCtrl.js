@@ -115,7 +115,7 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
         $scope.memberDetails[member].contact.email !== undefined
       ) {
         let headers_obj = {
-          To: "eldhose.jacob@live.com",
+          To: $scope.memberDetails[member].contact.email,
           Cc: "secretary@stmarys-jsoc-dallas.org," + $scope.emailCCList,
           Subject: $scope.emailSubject,
           "Content-Type": "text/html; charset=UTF-8"
@@ -125,7 +125,6 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
           $scope.memberDetails[member].emailSent = true;
         });
       }
-      break;
     }
   };
   $scope.sendEmail = function(headers_obj, message, callback) {
