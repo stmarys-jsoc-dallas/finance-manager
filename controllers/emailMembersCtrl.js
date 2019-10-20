@@ -1,12 +1,16 @@
 app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
   $scope.memberDetails = {};
   $scope.emailSubject = "Financial Contributions Update";
+  $scope.emailCCList = "glabi2001@gmail.com,";
+  $scope.year = new Date().getFullYear();
+  $scope.validationList = [];
+  $scope.showValidationList = false;
+  $scope.showDetailsForAll = false;
   $scope.voluntaryContributions = [
     { category: "Perunnal Share", suggestedAmount: "-" },
     { category: "Onam Lunch", suggestedAmount: "25" }
   ];
   $scope.formLoad = function() {
-    $scope.year = new Date().getFullYear();
     $scope.calculateEmailData();
   };
 
@@ -35,18 +39,22 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
           transaction.date.endsWith(year2Digit) &&
           transaction.ignoreFromFinancialReport !== "YES"
         ) {
-          //alert(JSON.stringify(transaction));
-          let memberDetail = memberDetails[transaction.fromOrTo];
-          if (memberDetail === undefined) {
-            memberDetail = {};
-            memberDetail.show = false;
-          }
-          if (memberDetail.credits == undefined) {
-            memberDetail.credits = [];
-          }
-          memberDetail.credits.push(transaction);
+          if (transaction.isMember === "YES") {
+            //alert(JSON.stringify(transaction));
+            let memberDetail = memberDetails[transaction.fromOrTo];
+            if (memberDetail === undefined) {
+              memberDetail = {};
+              memberDetail.show = false;
+            }
+            if (memberDetail.credits == undefined) {
+              memberDetail.credits = [];
+            }
+            memberDetail.credits.push(transaction);
 
-          memberDetails[transaction.fromOrTo] = memberDetail;
+            memberDetails[transaction.fromOrTo] = memberDetail;
+          } else {
+            $scope.validationList.push(transaction);
+          }
         }
       }
     }
@@ -102,13 +110,19 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
         }
       }
       let emailContent = memberDataDiv.outerHTML;
-      let headers_obj = {
-        To: "eldhose.jacob@live.com",
-        Subject: $scope.emailSubject,
-        "Content-Type": "text/html; charset=UTF-8"
-      };
+      if (
+        $scope.memberDetails[member].contact !== undefined &&
+        $scope.memberDetails[member].contact.email !== undefined
+      ) {
+        let headers_obj = {
+          To: "eldhose.jacob@live.com",
+          Cc: "secretary@stmarys-jsoc-dallas.org," + $scope.emailCCList,
+          Subject: $scope.emailSubject,
+          "Content-Type": "text/html; charset=UTF-8"
+        };
 
-      $scope.sendEmail(headers_obj, emailContent);
+        $scope.sendEmail(headers_obj, emailContent);
+      }
       break;
     }
   };

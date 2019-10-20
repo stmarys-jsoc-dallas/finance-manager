@@ -24,6 +24,10 @@
             <div><b>Email Subject:</b><br/>
                 <input ng-model="emailSubject"></div>
         </div>
+        <div class="smcFormInput">
+            <div><b>Email CC List(Comma Seperated):</b><br/>
+                <input ng-model="emailCCList"></div>
+        </div>
 
         <div class="smcFormInput">
             <button type="button" class="btn btn-primary" ng-click="calculateEmailData()">Refresh</button>
@@ -33,6 +37,23 @@
         </div>
         <div>
             <span>Member Count - {{memberCount}}</span>
+            <span ng-click="showValidationList=!showValidationList" style="cursor:pointer;color:red"><b>View Validation List</b></span>
+            <span ng-click="showDetailsForAll=!showDetailsForAll" style="cursor:pointer;color:blue"><b>Show/Hide MemberDetails</b></span>
+            <div ng-show="showValidationList===true">
+                <br>
+                <span ng-show="validationList!==undefined && validationList.length>0">These are credit entries for a member, but are marked with <b>NO</b> for the IsMember column</span>
+                <span ng-show="validationList===undefined || validationList.length===0">No validation entries found!</span>
+                <br>
+                <table>
+                    <tr ng-repeat="validationItem in validationList track by $index">
+                        <td>{{validationItem.date}}</td>
+                        <td>{{validationItem.fromOrTo}}</td>
+                        <td>{{validationItem.subReason}}</td>
+                        <td>{{validationItem.amount}}</td>
+                    </tr>
+                </table>
+            </div>
+
         </div>
         <div>
 
@@ -41,7 +62,7 @@
                 <div ng-click="memberDetail.show=!memberDetail.show" style="padding:10px;width:100%;background-color:#DCDCDC"><b> -- {{memberName}} -- </b><span ng-show="memberDetail.contact!=undefined && memberDetail.contact.email!=undefined">(email:- {{memberDetail.contact.email}})</span>
                     <span ng-show="memberDetail.contact==undefined || memberDetail.contact.email==undefined" style="color:red">NO EMAIL !!</span>
                     <span ng-show="memberDetail.credits==undefined && memberDetail.dues==undefined && memberDetail.collectibles==undefined" style="color:red">NO DATA !!</span><br/>                    </div>
-                <div id={{memberName}} ng-show="memberDetail.show==true">
+                <div id={{memberName}} ng-show="showDetailsForAll==true || memberDetail.show==true">
                     <style>
                         table {
                             border-collapse: collapse;
