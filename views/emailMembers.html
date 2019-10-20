@@ -64,19 +64,7 @@
                     <span ng-show="memberDetail.contact==undefined || memberDetail.contact.email==undefined" style="color:red">NO EMAIL !!</span>
                     <span ng-show="memberDetail.credits==undefined && memberDetail.dues==undefined && memberDetail.collectibles==undefined" style="color:red">NO DATA !!</span><br/>                    </div>
                 <div id={{memberName}} ng-show="showDetailsForAll==true || memberDetail.show==true">
-                    <style>
-                        table {
-                            border-collapse: collapse;
-                        }
 
-                        table,
-                        th,
-                        td {
-                            border: 1px solid black;
-                            border-color: green;
-                            padding: 4px;
-                        }
-                    </style>
                     Dear {{memberName}},
                     <br/>
                     <br/>
@@ -107,7 +95,7 @@
 
                             <table style="border-collapse: collapse;">
                                 <tr>
-                                    <th colspan="3" style="border: 1px solid black; border-color: green; padding: 4px;" style="text-align:center">
+                                    <th colspan="3" style="border: 1px solid black; border-color: green; padding: 4px;text-align:center">
                                         Mandatory Dues
                                     </th>
                                 </tr>
@@ -128,7 +116,7 @@
                         <div ng-show="memberDetail.collectibles!=undefined && memberDetail.collectibles.length>0">
                             <table style="border-collapse: collapse;">
                                 <tr>
-                                    <th colspan="3" style="border: 1px solid black; border-color: green; padding: 4px;" style="text-align:center">
+                                    <th colspan="3" style="border: 1px solid black; border-color: green; padding: 4px;text-align:center">
                                         Collectibles
                                     </th>
                                 </tr>
@@ -149,7 +137,7 @@
                         <div ng-show="memberDetail.voluntaryContributions!=undefined">
                             <table style="border-collapse: collapse;">
                                 <tr>
-                                    <th colspan="2" style="border: 1px solid black; border-color: green; padding: 4px;" style="text-align:center">
+                                    <th colspan="2" style="border: 1px solid black; border-color: green; padding: 4px;text-align:center">
                                         Voluntary Contributions
                                     </th>
                                 </tr>
