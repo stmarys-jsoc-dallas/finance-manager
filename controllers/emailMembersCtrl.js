@@ -131,9 +131,6 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
   $scope.sendEmail = function(headers_obj, message, callback) {
     var email = "";
 
-    callback = function(response) {
-      alert(JSON.stringify(response));
-    };
     for (var header in headers_obj)
       email += header += ": " + headers_obj[header] + "\r\n";
 
