@@ -1,4 +1,4 @@
-var app = angular.module("smcFinance", ["ui.router"]);
+var app = angular.module("smcFinance", ["ngSanitize", "ui.router"]);
 
 app.directive("customOnChange", function() {
   return {

@@ -1,4 +1,5 @@
 app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
+  $scope.emailContent = "";
   $scope.memberDetails = {};
   $scope.emailSubject = "Financial Contributions Update";
   $scope.emailCCList = "glabi2001@gmail.com,";
@@ -120,12 +121,30 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
           Subject: $scope.emailSubject,
           "Content-Type": "text/html; charset=UTF-8"
         };
-
-        $scope.sendEmail(headers_obj, emailContent, () => {
-          $scope.memberDetails[member].emailSent = true;
-        });
+        if ($scope.memberDetails[member].needToSendEmail) {
+          alert(emailContent);
+          $scope.sendEmail(headers_obj, emailContent, response => {
+            console.log(
+              "Response for" + member + " is " + JSON.stringify(response)
+            );
+            $scope.$applyAsync();
+            $scope.memberDetails[member].emailSent = true;
+          });
+        }
       }
     }
+  };
+  $scope.showEmailContentForMember = function(memberName) {
+    let memberDataDiv = document.getElementById(memberName);
+    let elementsToHide = memberDataDiv.getElementsByClassName("ng-hide");
+    if (elementsToHide != undefined) {
+      for (let i = 0; i < elementsToHide.length; i++) {
+        elementsToHide[i].remove();
+      }
+    }
+    let emailContent = memberDataDiv.outerHTML;
+    emailContent = emailContent.replace("ng-hide", "");
+    $scope.emailContent = emailContent;
   };
   $scope.sendEmail = function(headers_obj, message, callback) {
     var email = "";
@@ -146,6 +165,16 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
     });
 
     return sendRequest.execute(callback);
+  };
+  $scope.selectAllForEmail = function() {
+    for (let member in $scope.memberDetails) {
+      $scope.memberDetails[member].needToSendEmail = true;
+    }
+  };
+  $scope.unSelectAllForEmail = function() {
+    for (let member in $scope.memberDetails) {
+      $scope.memberDetails[member].needToSendEmail = false;
+    }
   };
   $scope.calculateEmailData();
 });
