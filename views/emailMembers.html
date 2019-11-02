@@ -9,11 +9,11 @@
         </div>
         <div class="smcFormInput">
             <div><b>Voluntary Contributions:</b>
-                <div ng-repeat="usualContribution in voluntaryContributions">
-                    <i>Category:</i><input ng-model="usualContribution.category">&nbsp;
-                    <i>Suggested Amount:</i><input ng-model="usualContribution.suggestedAmount">
-                    <i class="fa fa-plus" style="cursor:pointer" aria-hidden="true"></i>
-                    <i class="fa fa-minus" style="cursor:pointer" aria-hidden="true"></i><br></div>
+                <div ng-repeat="voluntaryContribution in voluntaryContributions">
+                    <i>Category:</i><input ng-model="voluntaryContribution.category">&nbsp;
+                    <i>Suggested Amount:</i><input ng-model="voluntaryContribution.suggestedAmount">
+                    <i class="fa fa-plus" style="cursor:pointer" aria-hidden="true" ng-click='addVoluntaryContribution($index)'></i>
+                    <i class="fa fa-minus" style="cursor:pointer" aria-hidden="true" ng-click='removeVoluntaryContribution($index)'></i><br></div>
             </div>
         </div>
         <div class="smcFormInput">

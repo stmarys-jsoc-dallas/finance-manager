@@ -9,6 +9,7 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
   $scope.showDetailsForAll = false;
   $scope.voluntaryContributions = [
     { category: "Perunnal Share", suggestedAmount: "-" },
+    { category: "Mission Fund", suggestedAmount: "-" },
     { category: "Onam Lunch", suggestedAmount: "25" }
   ];
   $scope.formLoad = function() {
@@ -174,6 +175,22 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
   $scope.unSelectAllForEmail = function() {
     for (let member in $scope.memberDetails) {
       $scope.memberDetails[member].needToSendEmail = false;
+    }
+  };
+  $scope.addVoluntaryContribution = function(index) {
+    $scope.voluntaryContributions.splice(index, 0, {
+      category: "",
+      suggestedAmount: "-"
+    });
+  };
+  $scope.removeVoluntaryContribution = function(index) {
+    if ($scope.voluntaryContributions.length > 1) {
+      $scope.voluntaryContributions.splice(index, 1);
+    } else if ($scope.voluntaryContributions.length == 1) {
+      $scope.voluntaryContributions[0] = {
+        category: "",
+        suggestedAmount: "-"
+      };
     }
   };
   $scope.calculateEmailData();
