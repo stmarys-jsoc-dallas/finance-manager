@@ -1,4 +1,4 @@
-app.controller("financialReportCtrl", function($scope, $http) {
+app.controller("financialReportCtrl", function($scope, $http, $rootScope) {
   $scope.buildfinancialSummary = function() {
     var creditReport = {};
     var debitReport = {};
@@ -71,6 +71,14 @@ app.controller("financialReportCtrl", function($scope, $http) {
     } else if (debitOrCredit < 0) {
       $scope.additionalDebitRows = new Array(debitOrCredit);
       $scope.additionalCreditRows = 0;
+    }
+    $scope.buildReceivablesSummary();
+  };
+  $scope.buildReceivablesSummary = function() {
+    for (var key in $rootScope.receivables) {
+      if ($rootScope.receivables.hasOwnProperty(key)) {
+        //alert(JSON.stringify($rootScope.receivables[key].dues));
+      }
     }
   };
   $scope.roundToTwo = function(num) {

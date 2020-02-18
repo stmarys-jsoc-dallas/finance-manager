@@ -3,12 +3,14 @@
 
 <body>
     <div ng-controller="emailMembersCtrl" style="margin:5px" ng-init="formLoad()">
+        <div><button class="btn btn-warning" ng-click="switchMode('DuesAndDonations')">DUES and DONATIONS Report</button>
+            <button class="btn btn-warning" ng-click="switchMode('receipts')">RECEIPT</button></div>
         <div class="smcFormInput">
             <div><b>YEAR:</b> <br/>
                 <input ng-model="year"></div>
         </div>
         <div class="smcFormInput">
-            <div><b>Voluntary Contributions:</b>
+            <div ng-show="duesAndDonationsOrReceipts=='DuesAndDonations'"><b>Voluntary Contributions:</b>
                 <div ng-repeat="voluntaryContribution in voluntaryContributions">
                     <i>Category:</i><input ng-model="voluntaryContribution.category">&nbsp;
                     <i>Suggested Amount:</i><input ng-model="voluntaryContribution.suggestedAmount">
@@ -79,99 +81,126 @@
                         <br/>
                         <br/>
                         <p>Thank you for your continued support to our church</p>
-                        <div ng-show="memberDetail.credits!=undefined">
-                            <p>Below is the information regarding the payments you have done to our Church till today for year
-                                {{year}}
+                        <div ng-show="memberDetail.credits!=undefined||memberDetail.creditSummary!=undefined">
+                            <p>{{emailIntroText}}
                             </p>
-                            <table style="border-collapse: collapse;">
-                                <tr>
-                                    <th style="border: 1px solid black; border-color: green; padding: 4px;">Transaction Date</th>
-                                    <th style="border: 1px solid black; border-color: green; padding: 4px;">Category</th>
-                                    <th style="border: 1px solid black; border-color: green; padding: 4px;">Amount</th>
-                                    <th style="border: 1px solid black; border-color: green; padding: 4px;">Mode Of Payment</th>
-                                </tr>
-                                <tr ng-repeat="creditTxn in memberDetail.credits">
-                                    <td style="border: 1px solid black; border-color: green; padding: 4px;">{{creditTxn.date}}</td>
-                                    <td style="border: 1px solid black; border-color: green; padding: 4px;">{{creditTxn.reason}}</td>
-                                    <td style="border: 1px solid black; border-color: green; padding: 4px;">$ {{creditTxn.amount}}</td>
-                                    <td style="border: 1px solid black; border-color: green; padding: 4px;">{{creditTxn.modeOfTxn}}</td>
-                                </tr>
+                            <div ng-show="memberDetail.credits!=undefined && duesAndDonationsOrReceipts==='DuesAndDonations'">
+                                <table id=" memberCreditTransactions " style="border-collapse: collapse; ">
+                                    <tr>
+                                        <th style="border: 1px solid black; border-color: green; padding: 4px;">Transaction Date</th>
+                                        <th style="border: 1px solid black; border-color: green; padding: 4px;">Category</th>
+                                        <th style="border: 1px solid black; border-color: green; padding: 4px;">Amount</th>
+                                        <th style="border: 1px solid black; border-color: green; padding: 4px;">Mode Of Payment</th>
+                                    </tr>
+                                    <tr ng-repeat="creditTxn in memberDetail.credits ">
+                                        <td style="border: 1px solid black; border-color: green; padding: 4px;">{{creditTxn.date}}</td>
+                                        <td style="border: 1px solid black; border-color: green; padding: 4px;">{{creditTxn.reason}}</td>
+                                        <td style="border: 1px solid black; border-color: green; padding: 4px;">$ {{creditTxn.amount}}</td>
+                                        <td style="border: 1px solid black; border-color: green; padding: 4px;">{{creditTxn.modeOfTxn}}</td>
+                                    </tr>
 
-                            </table>
+                                </table>
+                            </div>
+                            <div ng-show="memberDetail.creditSummary!=undefined && duesAndDonationsOrReceipts==='receipts'">
+                                <table id=" memberCreditSummary " style="border-collapse: collapse; ">
+                                    <tr>
+                                        <th style="border: 1px solid black; border-color: green; padding: 4px;">Category</th>
+                                        <th style="border: 1px solid black; border-color: green; padding: 4px;">Amount</th>
+
+                                    </tr>
+                                    <tr ng-repeat="(key, value) in memberDetail.creditSummary">
+                                        <td style="border: 1px solid black; border-color: green; padding: 4px;"> {{key}} </td>
+                                        <td style="border: 1px solid black; border-color: green; padding: 4px;"> $ {{ value }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th>TOTAL</th>
+                                        <th> $ {{ memberDetail.creditSummaryTotal }}</th>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
-                        <div ng-show="(memberDetail.dues!=undefined && memberDetail.dues.length>0) ||( memberDetail.collectibles!=undefined && memberDetail.collectibles.length>0)">
-                            <br/>
-                            <p>Below are the payments remaining for year {{year}}</p>
-                            <br/>
-                            <div ng-show="memberDetail.dues!=undefined && memberDetail.dues.length>0">
+                        <div ng-show="duesAndDonationsOrReceipts!=='receipts'">
+                            <div ng-show="(memberDetail.dues!=undefined && memberDetail.dues.length>0) ||( memberDetail.collectibles!=undefined && memberDetail.collectibles.length>0)">
 
-                                <table style="border-collapse: collapse;">
-                                    <tr>
-                                        <th colspan="3" style="border: 1px solid black; border-color: green; padding: 4px;text-align:center">
-                                            Mandatory Dues
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th style="border: 1px solid black; border-color: green; padding: 4px;">Category</th>
-                                        <th style="border: 1px solid black; border-color: green; padding: 4px;">Amount Paid</th>
-                                        <th style="border: 1px solid black; border-color: green; padding: 4px;">Amount Pending</th>
-                                    </tr>
-                                    <tr ng-repeat="due in memberDetail.dues">
-                                        <td style="border: 1px solid black; border-color: green; padding: 4px;">{{due.category}}</td>
-                                        <td style="border: 1px solid black; border-color: green; padding: 4px;">$ {{due.amountPaid}}</td>
-                                        <td style="border: 1px solid black; border-color: green; padding: 4px;">$ {{due.amountPending}}</td>
-                                    </tr>
-                                </table>
-                                <br>
-                            </div>
+                                <br/>
+                                <p>Below are the payments remaining for year {{year}}</p>
+                                <br/>
+                                <div ng-show="memberDetail.dues!=undefined && memberDetail.dues.length>0">
 
-                            <div ng-show="memberDetail.collectibles!=undefined && memberDetail.collectibles.length>0">
-                                <table style="border-collapse: collapse;">
-                                    <tr>
-                                        <th colspan="3" style="border: 1px solid black; border-color: green; padding: 4px;text-align:center">
-                                            Collectibles
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th style="border: 1px solid black; border-color: green; padding: 4px;">Category</th>
-                                        <th style="border: 1px solid black; border-color: green; padding: 4px;">Amount Paid</th>
-                                        <th style="border: 1px solid black; border-color: green; padding: 4px;">Amount Pending</th>
+                                    <table style="border-collapse: collapse;">
+                                        <tr>
+                                            <th colspan="3" style="border: 1px solid black; border-color: green; padding: 4px;text-align:center">
+                                                Mandatory Dues
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th style="border: 1px solid black; border-color: green; padding: 4px;">Category</th>
+                                            <th style="border: 1px solid black; border-color: green; padding: 4px;">Amount Paid</th>
+                                            <th style="border: 1px solid black; border-color: green; padding: 4px;">Amount Pending</th>
+                                        </tr>
+                                        <tr ng-repeat="due in memberDetail.dues">
+                                            <td style="border: 1px solid black; border-color: green; padding: 4px;">{{due.category}}</td>
+                                            <td style="border: 1px solid black; border-color: green; padding: 4px;">$ {{due.amountPaid}}</td>
+                                            <td style="border: 1px solid black; border-color: green; padding: 4px;">$ {{due.amountPending}}</td>
+                                        </tr>
+                                    </table>
+                                    <br>
+                                </div>
 
-                                    </tr>
-                                    <tr ng-repeat="receivable in memberDetail.collectibles">
-                                        <td style="border: 1px solid black; border-color: green; padding: 4px;">{{receivable.category}}</td>
-                                        <td style="border: 1px solid black; border-color: green; padding: 4px;">$ {{receivable.amountPaid}}</td>
-                                        <td style="border: 1px solid black; border-color: green; padding: 4px;">$ {{receivable.amountPending}}</td>
-                                    </tr>
-                                </table>
-                                <br>
+                                <div ng-show="memberDetail.collectibles!=undefined && memberDetail.collectibles.length>0">
+                                    <table style="border-collapse: collapse;">
+                                        <tr>
+                                            <th colspan="3" style="border: 1px solid black; border-color: green; padding: 4px;text-align:center">
+                                                Collectibles
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th style="border: 1px solid black; border-color: green; padding: 4px;">Category</th>
+                                            <th style="border: 1px solid black; border-color: green; padding: 4px;">Amount Paid</th>
+                                            <th style="border: 1px solid black; border-color: green; padding: 4px;">Amount Pending</th>
+
+                                        </tr>
+                                        <tr ng-repeat="receivable in memberDetail.collectibles">
+                                            <td style="border: 1px solid black; border-color: green; padding: 4px;">{{receivable.category}}</td>
+                                            <td style="border: 1px solid black; border-color: green; padding: 4px;">$ {{receivable.amountPaid}}</td>
+                                            <td style="border: 1px solid black; border-color: green; padding: 4px;">$ {{receivable.amountPending}}</td>
+                                        </tr>
+                                    </table>
+                                    <br>
+                                </div>
+                                <div ng-show="memberDetail.voluntaryContributions!=undefined">
+                                    <table style="border-collapse: collapse;">
+                                        <tr>
+                                            <th colspan="2" style="border: 1px solid black; border-color: green; padding: 4px;text-align:center">
+                                                Voluntary Contributions
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th style="border: 1px solid black; border-color: green; padding: 4px;">Category</th>
+                                            <th style="border: 1px solid black; border-color: green; padding: 4px;">Suggested Amount</th>
+                                        </tr>
+                                        <tr ng-repeat="voluntaryItem in memberDetail.voluntaryContributions">
+                                            <td style="border: 1px solid black; border-color: green; padding: 4px;">{{voluntaryItem.category}}</td>
+                                            <td style="border: 1px solid black; border-color: green; padding: 4px;">$ {{voluntaryItem.suggestedAmount}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <br/>
+                                <p>Please see if you can make the payments at the earliest.</p>
                             </div>
-                            <div ng-show="memberDetail.voluntaryContributions!=undefined">
-                                <table style="border-collapse: collapse;">
-                                    <tr>
-                                        <th colspan="2" style="border: 1px solid black; border-color: green; padding: 4px;text-align:center">
-                                            Voluntary Contributions
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th style="border: 1px solid black; border-color: green; padding: 4px;">Category</th>
-                                        <th style="border: 1px solid black; border-color: green; padding: 4px;">Suggested Amount</th>
-                                    </tr>
-                                    <tr ng-repeat="voluntaryItem in memberDetail.voluntaryContributions">
-                                        <td style="border: 1px solid black; border-color: green; padding: 4px;">{{voluntaryItem.category}}</td>
-                                        <td style="border: 1px solid black; border-color: green; padding: 4px;">$ {{voluntaryItem.suggestedAmount}}</td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <br/>
-                            <p>Please see if you can make the payments at the earliest.</p>
+                            <p>Please do let us know if you see any discrepencies. </p>
                         </div>
-                        <p>Please do let us know if you see any discrepencies. </p>
+
 
                         <p>Thank you,</p>
                         <span>{{treasurerName}}</span>
                         <br>
-                        <span>Treausurer,</span>
+                        <div ng-show="duesAndDonationsOrReceipts==='receipts'">
+                            <span>Treausurer for year {{year}},</span>
+                        </div>
+                        <div ng-show="duesAndDonationsOrReceipts!=='receipts'">
+                            <span>Treausurer,</span>
+                        </div>
                         <br>
                         <span>St. Mary's JSO Church</span>
                         <br/>

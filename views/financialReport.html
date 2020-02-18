@@ -4,6 +4,35 @@
 <body>
     <div ng-controller="financialReportCtrl">
         <div style="display:inline-block;margin:20px;text-align:center">
+            <div>
+                <h2>Financial Projection for year</h2>
+                <table>
+                    <tr>
+                        <th>Total Credit Till now</th>
+                        <td>{{totalCredit}}</td>
+                    </tr>
+                    <tr>
+                        <th>Total Debit Till now</th>
+                        <td>{{totalDebit}}</td>
+                    </tr>
+                    <tr>
+                        <th>Current Balance</th>
+                        <td>{{totalCredit-totalDebit}}</td>
+                    </tr>
+                    <tr>
+                        <th>Projected Receivables</th>
+                        <td>{{projectedCredit}}</td>
+                    </tr>
+                    <tr>
+                        <th>Projected Debits</th>
+                        <td><input type="text" ng-model="projectedDebit"></td>
+                    </tr>
+                    <tr>
+                        <th>Projected Year End Balance</th>
+                        <td>{{(totalCredit-totalDebit)+(projectedCredit-projectedDebit)}}</td>
+                    </tr>
+                </table>
+            </div>
             <div style="display:inline-block">
                 <div ng-if="totalIgnoredDebit!=totalIgnoredCredit">
                     <div>Discrepency Found in ignored transactions for report!</div>
@@ -11,6 +40,7 @@
                     <div>Total Ignored Debit is {{totalIgnoredDebit}}</div>
                 </div>
             </div>
+
             <div>
                 <h2>Financial Report</h2>
             </div>

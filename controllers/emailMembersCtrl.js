@@ -1,6 +1,8 @@
 app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
   $scope.emailContent = "";
   $scope.memberDetails = {};
+  $scope.duesAndDonationsOrReceipts = "DuesAndDonations";
+  $scope.emailIntroText = "";
   $scope.emailSubject = "Financial Contributions Update";
   $scope.emailCCList = "glabi2001@gmail.com,";
   $scope.year = new Date().getFullYear();
@@ -14,6 +16,19 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
   ];
   $scope.formLoad = function() {
     $scope.calculateEmailData();
+  };
+
+  $scope.switchMode = function(newMode) {
+    $scope.duesAndDonationsOrReceipts = newMode;
+    if (newMode === "DuesAndDonations") {
+      $scope.emailIntroText =
+        "Below is the information regarding the payments you have done to our Church till today for year" +
+        $scope.year;
+    } else {
+      $scope.emailIntroText =
+        "Below is the summary of donations you have done to our church for year " +
+        $scope.year;
+    }
   };
 
   $scope.calculateEmailData = function() {
@@ -51,6 +66,20 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
             if (memberDetail.credits == undefined) {
               memberDetail.credits = [];
             }
+            if (memberDetail.creditSummary == undefined) {
+              memberDetail.creditSummary = {};
+            }
+            let amountForCategory =
+              memberDetail.creditSummary[transaction.reason];
+            if (amountForCategory == undefined) {
+              amountForCategory = 0;
+            }
+            if (memberDetail.creditSummaryTotal === undefined) {
+              memberDetail.creditSummaryTotal = 0;
+            }
+            memberDetail.creditSummaryTotal += transaction.amount;
+            memberDetail.creditSummary[transaction.reason] =
+              amountForCategory + transaction.amount;
             memberDetail.credits.push(transaction);
 
             memberDetails[transaction.fromOrTo] = memberDetail;
@@ -96,7 +125,7 @@ app.controller("emailMembersCtrl", function($scope, $rootScope, $http) {
             }
           }
         }
-
+        //alert(JSON.stringify($scope.memberDetails[key].creditSummary));
         $scope.memberDetails[key].contact = $scope.memberDirectory[key];
       }
     }
